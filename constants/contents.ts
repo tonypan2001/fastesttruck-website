@@ -41,18 +41,21 @@ export const section = {
         weightRange: "0–500 kg",
         description: "Ideal for small parcels and online shops",
         startingPrice: "From \u0E3F499",
+        imageUrl: "/imgs/package1-card-bg.png",
       },
       {
         name: "Standard Truck",
         weightRange: "500–2,000 kg",
         description: "Best for medium-sized businesses and warehouses",
         startingPrice: "From \u0E3F1,299",
+        imageUrl: "/imgs/package2-card-bg.png",
       },
       {
         name: "Heavy Load",
         weightRange: "2,000+ kg",
         description: "For large goods and industrial machinery",
         startingPrice: "From \u0E3F2,999",
+        imageUrl: "/imgs/package3-card-bg.png",
       },
     ],
     footnote:

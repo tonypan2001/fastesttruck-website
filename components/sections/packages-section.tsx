@@ -24,23 +24,32 @@ export default function PackagesSection({ packages }: { packages?: PackagesData 
             <article
               key={pkg.name}
               className={cn(
-                "fv-item group rounded-xl border border-border/60 bg-card text-card-foreground shadow-sm",
-                "hover:shadow-md transition-shadow",
+                "fv-item group relative overflow-hidden rounded-xl border border-border/60 shadow-sm",
+                "hover:shadow-md transition-transform",
               )}
             >
-              <div className="p-6">
+              {/* Background image */}
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-105 group-hover:scale-110"
+                style={{ backgroundImage: `url(${(pkg as any).imageUrl || ''})` }}
+              />
+              {/* Dark overlay for readability */}
+              <div className="absolute inset-0 bg-black/40" />
+
+              <div className="relative p-6 flex flex-col min-h-[220px] justify-end text-white">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-xl font-semibold text-foreground">{pkg.name}</h3>
-                  <span className="inline-flex items-center rounded-full bg-primary/10 text-primary px-2 py-1 text-xs font-medium">
+                  <h3 className="text-xl font-semibold">{pkg.name}</h3>
+                  <span className="inline-flex items-center rounded-full bg-white/20 text-white px-2 py-1 text-xs font-medium">
                     {pkg.weightRange}
                   </span>
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground min-h-12">{pkg.description}</p>
+                <p className="mt-3 text-sm text-white/85 min-h-12">{pkg.description}</p>
               </div>
 
-              <div className="px-6 pb-6 mt-auto">
-                <div className="text-sm text-muted-foreground">Starting price</div>
-                <div className="text-2xl font-bold text-foreground">{pkg.startingPrice}</div>
+              <div className="relative px-6 pb-6">
+                <div className="text-sm text-white/80">Starting price</div>
+                <div className="text-2xl font-bold text-white">{pkg.startingPrice}</div>
               </div>
             </article>
           ))}
