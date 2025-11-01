@@ -15,7 +15,7 @@ export default function MainPage({ lang = "en" as Lang }: { lang?: Lang }) {
   return (
     <main className="min-h-screen">
       <Navigation nav={content.navigation} />
-      <TruckHeroSection bgUrl={content.hero.bgImageUrl} />
+      <TruckHeroSection bgImages={content.hero.bgImages} />
       <PackagesSection packages={content.section.packagesSection} />
       <WhatWeDoSection whatWeDo={content.section.whatWeDoSection} />
       <WorksSection works={content.section.worksSection} />

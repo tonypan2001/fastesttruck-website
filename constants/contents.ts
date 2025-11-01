@@ -15,8 +15,8 @@ export const hero = {
   heroTextWithGradient: "PanStudio",
   heroTextDetail:
     "We craft crisp, accessible interfaces with subtle 3D and purposeful motion—tuned for speed, clarity, and feel.",
-  // Truck website background image
-  bgImageUrl: "/imgs/truck-hero.png",
+  // Truck website background images (fill with your own in /public/imgs)
+  bgImages: ["/imgs/truck-hero.png", "/imgs/truck-hero2.png"],
 };
 
 export const heroCard = {
