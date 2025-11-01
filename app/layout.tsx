@@ -24,10 +24,10 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "PanStudio",
-    template: "%s | PanStudio",
+    default: "FastestTruck",
+    template: "%s | FastestTruck",
   },
-  description: "PanStudio — Modern, motion-smart web interfaces.",
+  description: "FastestTruck — Deliver Faster. Safer. Smarter.",
   alternates: {
     canonical: "/",
     languages: {
@@ -41,26 +41,26 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteUrl,
-    title: "PanStudio",
-    description: "Modern, motion-smart web interfaces",
-    siteName: "PanStudio",
+    title: "FastestTruck",
+    description: "Your trusted logistics partner — Fastest Truck.",
+    siteName: "FastestTruck",
     images: [
       {
         url: "/icon.svg",
         width: 512,
         height: 512,
-        alt: "PanStudio logo",
+        alt: "FastestTruck logo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PanStudio",
-    description: "Modern, motion-smart web interfaces",
+    title: "FastestTruck",
+    description: "Your trusted logistics partner — Fastest Truck.",
     images: [
       {
         url: "/icon.svg",
-        alt: "PanStudio logo",
+        alt: "FastestTruck logo",
       },
     ],
   },
@@ -94,7 +94,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "PanStudio",
+              name: "FastestTruck",
               url: siteUrl,
               inLanguage: "en",
               potentialAction: {
@@ -104,7 +104,7 @@ export default function RootLayout({
               },
               publisher: {
                 "@type": "Organization",
-                name: "PanStudio",
+                name: "FastestTruck",
                 url: siteUrl,
                 logo: `${siteUrl}/icon.svg`,
               },

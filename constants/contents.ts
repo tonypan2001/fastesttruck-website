@@ -262,7 +262,7 @@ export const section = {
     ],
   },
   footerSection: {
-    title: "PanStudio",
-    content: "© 2025 PanStudio — Designed & Built by Prompan Uechanwech",
+    title: "FastestTruck",
+    content: "© 2025 FastestTruck — Designed & Built by Prompan Uechanwech",
   },
 };

@@ -7,11 +7,14 @@
     </linearGradient>
   </defs>
   <rect x="2" y="2" width="60" height="60" rx="14" fill="#0b0b0b"/>
+  <!-- Truck mark -->
   <g fill="url(#g)">
     <path d="M12 36.5v-8.2c0-2.5 2-4.3 4.5-4.3h16.8c.4 0 .7.3.7.7v17H17.2a5.2 5.2 0 0 1-5.2-5.2Z"/>
     <path d="M36 24.7h8.6c1 0 2 .4 2.7 1.1l6.9 6.9c.7.7 1.1 1.7 1.1 2.7v8.2H36V24.7Z"/>
   </g>
+  <!-- Wheels -->
   <circle cx="22.5" cy="45.5" r="4.6" fill="#ffffff"/>
   <circle cx="47.5" cy="45.5" r="4.6" fill="#ffffff"/>
+  <!-- FT monogram -->
   <path d="M19 19h18v3H28v4h-3v-4h-6v-3Zm16 0h10v3h-7v8h-3v-11Z" fill="#ffffff" opacity="0.92"/>
 </svg>
