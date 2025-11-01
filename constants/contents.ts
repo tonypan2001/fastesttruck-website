@@ -1,5 +1,5 @@
 export const navigation = {
-  logo: "Fastest Truck",
+  logo: "FastestTruck",
   menuItems: [
     { label: "Home", href: "#home" },
     { label: "What we do", href: "#what-we-do" },

@@ -136,7 +136,7 @@ export function Navigation({ nav }: { nav?: typeof navigation }) {
             <a
               href="#home"
               className={cn(
-                "inline-flex items-center gap-2",
+                "inline-flex items-center gap-2 group logo-trigger",
                 isScrolled ? "text-foreground" : "text-white"
               )}
               onClick={(e) => {
@@ -144,7 +144,7 @@ export function Navigation({ nav }: { nav?: typeof navigation }) {
                 smoothScrollToHash('#home');
               }}
             >
-              <Logo className="h-8 md:h-9 w-auto" title={(nav ?? navigation).logo} />
+              <Logo className="text-2xl md:text-3xl" title={(nav ?? navigation).logo} />
               <span className="sr-only">{(nav ?? navigation).logo}</span>
             </a>
           </div>

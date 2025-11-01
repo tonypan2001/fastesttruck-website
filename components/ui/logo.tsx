@@ -1,21 +1,17 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-type LogoProps = React.ImgHTMLAttributes<HTMLImageElement> & {
+type LogoProps = {
   className?: string;
   title?: string;
 };
 
-export function Logo({ className, title = "PanStudio", ...props }: LogoProps) {
+export default function Logo({ className, title = "FastestTruck" }: LogoProps) {
+  const text = title || "FastestTruck";
   return (
-    <img
-      src="/icon.svg"
-      alt={`${title} logo`}
-      aria-label={`${title} logo`}
-      className={cn("block", className)}
-      {...props}
-    />
+    <span className={cn("logo font-extrabold leading-none select-none", className)} aria-label={text}>
+      <span className="block tracking-tight relative">{text}</span>
+      <span aria-hidden className="logo-fill absolute inset-0 text-primary tracking-tight">{text}</span>
+    </span>
   );
 }
-
-export default Logo;

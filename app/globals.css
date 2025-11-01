@@ -140,11 +140,11 @@
     * {
         @apply border-border outline-ring/50;
     }
-    body {
-        @apply bg-background text-foreground;
-        /* Prevent accidental horizontal scroll/whitespace from absolute/fixed layers */
-        overflow-x: hidden;
-    }
+  body {
+      @apply bg-background text-foreground;
+      /* Prevent accidental horizontal scroll/whitespace from absolute/fixed layers */
+      overflow-x: hidden;
+  }
     html {
         /* Ensure anchored scroll accounts for fixed navbar height */
         scroll-padding-top: 80px;
@@ -180,6 +180,16 @@
     animation: slide-in-right 300ms ease-out both;
     will-change: transform;
 }
+
+/* Logo hover sweep: base text keeps current color; overlay fills in primary on hover */
+.logo { position: relative; display: inline-block; }
+.logo .logo-fill {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.logo-trigger:hover .logo .logo-fill { transform: scaleX(1); }
 
 /* Scroll-triggered fade-ins per section */
 :root { --fv-duration: 1800ms; --fv-distance: 20px; }
