@@ -8,7 +8,8 @@ import { navigation } from "@/constants/contents";
 import Link from "next/link";
 import Logo from "@/components/ui/logo";
 import { createPortal } from "react-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe, ChevronDown, Check } from "lucide-react";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { usePathname, useRouter } from "next/navigation";
 
 export function Navigation({ nav }: { nav?: typeof navigation }) {
@@ -199,56 +200,76 @@ export function Navigation({ nav }: { nav?: typeof navigation }) {
             </div>
           </div>
 
-          {/* Language Selector (desktop only, no dropdown to avoid layout shifts) */}
-          <div className="hidden md:flex items-center gap-1 justify-self-end rounded-full border border-border/50 p-0.5">
-            <button
-              type="button"
-              onClick={() => {
-                if (currentLang !== "en") router.push("/");
-                setLang("en");
-              }}
-              className={cn(
-                "h-8 px-2 rounded-full inline-flex items-center gap-2 transition-colors cursor-pointer",
-                lang === "en"
-                  ? "bg-accent text-foreground"
-                  : "text-muted-foreground hover:bg-accent/60",
-              )}
-            >
-              <img
-                src="https://flagcdn.com/w40/us.png"
-                alt="English"
-                className="w-4 h-4 rounded-full object-cover"
-                width={16}
-                height={16}
-                loading="lazy"
-              />
-              <span className="hidden lg:inline">English</span>
-              <span className="lg:hidden">EN</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                if (currentLang !== "th") router.push("/th");
-                setLang("th");
-              }}
-              className={cn(
-                "h-8 px-2 rounded-full inline-flex items-center gap-2 transition-colors cursor-pointer",
-                lang === "th"
-                  ? "bg-accent text-foreground"
-                  : "text-muted-foreground hover:bg-accent/60",
-              )}
-            >
-              <img
-                src="https://flagcdn.com/w40/th.png"
-                alt="ไทย"
-                className="w-4 h-4 rounded-full object-cover"
-                width={16}
-                height={16}
-                loading="lazy"
-              />
-              <span className="hidden lg:inline">ไทย</span>
-              <span className="lg:hidden">TH</span>
-            </button>
+          {/* Language Selector (desktop) - Dropdown */}
+          <div className="hidden md:flex items-center justify-self-end">
+            <DropdownMenu.Root modal={false}>
+              <DropdownMenu.Trigger asChild>
+                <Button
+                  variant="ghost"
+                  className={cn(
+                    "h-9 px-3 rounded-full inline-flex items-center gap-2",
+                    isScrolled ? "text-foreground" : "text-white",
+                  )}
+                >
+                  <Globe className="w-4 h-4" />
+                  <span className="hidden lg:inline">
+                    {lang === "en" ? "English" : "ไทย"}
+                  </span>
+                  <span className="lg:hidden uppercase">{lang}</span>
+                  <ChevronDown className="w-4 h-4 opacity-70" />
+                </Button>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Portal>
+                <DropdownMenu.Content
+                  align="end"
+                  sideOffset={8}
+                  className="z-[80] min-w-40 max-w-[90vw] rounded-md border border-border/50 bg-background p-1 shadow-lg pointer-events-auto overflow-hidden"
+                >
+                  <DropdownMenu.Item
+                    className={cn(
+                      "px-2 py-2 rounded-md text-sm flex items-center gap-2 cursor-pointer outline-none",
+                      "hover:bg-accent hover:text-accent-foreground",
+                    )}
+                    onSelect={() => {
+                      if (currentLang !== "en") router.push("/");
+                      setLang("en");
+                    }}
+                  >
+                    <img
+                      src="https://flagcdn.com/w40/us.png"
+                      alt="English"
+                      className="w-4 h-4 rounded-full object-cover"
+                      width={16}
+                      height={16}
+                      loading="lazy"
+                    />
+                    English
+                    {lang === "en" && <Check className="ml-auto w-4 h-4" />}
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item
+                    className={cn(
+                      "px-2 py-2 rounded-md text-sm flex items-center gap-2 cursor-pointer outline-none",
+                      "hover:bg-accent hover:text-accent-foreground",
+                    )}
+                    onSelect={() => {
+                      if (currentLang !== "th") router.push("/th");
+                      setLang("th");
+                    }}
+                  >
+                    <img
+                      src="https://flagcdn.com/w40/th.png"
+                      alt="ไทย"
+                      className="w-4 h-4 rounded-full object-cover"
+                      width={16}
+                      height={16}
+                      loading="lazy"
+                    />
+                    ไทย
+                    {lang === "th" && <Check className="ml-auto w-4 h-4" />}
+                </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Portal>
+            </DropdownMenu.Root>
           </div>
 
           {/* Mobile Menu Button (mobile only) */}
@@ -322,58 +343,66 @@ export function Navigation({ nav }: { nav?: typeof navigation }) {
                 </nav>
               </div>
 
-              {/* Mobile language selector */}
+              {/* Mobile language selector - Dropdown */}
               <div className="absolute bottom-6 left-0 right-0 flex justify-center">
-                <div className="inline-flex items-center gap-1 rounded-full border border-white/30 bg-white/10 backdrop-blur px-1 py-1">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (currentLang !== "en") router.push("/");
-                      setLang("en");
-                      setMobileOpen(false);
-                    }}
-                    className={cn(
-                      "h-9 px-3 rounded-full inline-flex items-center gap-2 text-sm transition-colors",
-                      lang === "en"
-                        ? "bg-white/30 text-white"
-                        : "text-white/80 hover:bg-white/20",
-                    )}
-                  >
-                    <img
-                      src="https://flagcdn.com/w40/us.png"
-                      alt="English"
-                      className="w-4 h-4 rounded-full object-cover"
-                      width={16}
-                      height={16}
-                      loading="lazy"
-                    />
-                    EN
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (currentLang !== "th") router.push("/th");
-                      setLang("th");
-                      setMobileOpen(false);
-                    }}
-                    className={cn(
-                      "h-9 px-3 rounded-full inline-flex items-center gap-2 text-sm transition-colors",
-                      lang === "th"
-                        ? "bg-white/30 text-white"
-                        : "text-white/80 hover:bg-white/20",
-                    )}
-                  >
-                    <img
-                      src="https://flagcdn.com/w40/th.png"
-                      alt="ไทย"
-                      className="w-4 h-4 rounded-full object-cover"
-                      width={16}
-                      height={16}
-                      loading="lazy"
-                    />
-                    TH
-                  </button>
-                </div>
+                <DropdownMenu.Root modal={false}>
+                  <DropdownMenu.Trigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="h-10 px-4 rounded-full inline-flex items-center gap-2 text-white/90 hover:text-white hover:bg-white/10"
+                    >
+                      <Globe className="w-5 h-5" />
+                      <span className="uppercase">{lang}</span>
+                      <ChevronDown className="w-5 h-5 opacity-80" />
+                    </Button>
+                  </DropdownMenu.Trigger>
+                  <DropdownMenu.Portal>
+                    <DropdownMenu.Content
+                      align="center"
+                      sideOffset={8}
+                      className="z-[90] min-w-40 max-w-[92vw] rounded-md border border-white/20 bg-white/10 backdrop-blur p-1 shadow-lg text-white pointer-events-auto overflow-hidden"
+                    >
+                      <DropdownMenu.Item
+                        className="px-2 py-2 rounded-md text-sm flex items-center gap-2 cursor-pointer outline-none hover:bg-white/15"
+                        onSelect={() => {
+                          if (currentLang !== "en") router.push("/");
+                          setLang("en");
+                          setMobileOpen(false);
+                        }}
+                      >
+                        <img
+                          src="https://flagcdn.com/w40/us.png"
+                          alt="English"
+                          className="w-4 h-4 rounded-full object-cover"
+                          width={16}
+                          height={16}
+                          loading="lazy"
+                        />
+                        English
+                        {lang === "en" && <Check className="ml-auto w-4 h-4" />}
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Item
+                        className="px-2 py-2 rounded-md text-sm flex items-center gap-2 cursor-pointer outline-none hover:bg-white/15"
+                        onSelect={() => {
+                          if (currentLang !== "th") router.push("/th");
+                          setLang("th");
+                          setMobileOpen(false);
+                        }}
+                      >
+                        <img
+                          src="https://flagcdn.com/w40/th.png"
+                          alt="ไทย"
+                          className="w-4 h-4 rounded-full object-cover"
+                          width={16}
+                          height={16}
+                          loading="lazy"
+                        />
+                        ไทย
+                        {lang === "th" && <Check className="ml-auto w-4 h-4" />}
+                    </DropdownMenu.Item>
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Portal>
+                </DropdownMenu.Root>
               </div>
             </div>,
             document.body,
