@@ -30,6 +30,32 @@ export const heroCard = {
 };
 
 export const section = {
+  packagesSection: {
+    title: "\uD83D\uDCE6 Our Packages",
+    subtitle:
+      "Choose the perfect plan for your shipping needs — from small parcels to heavy industrial cargo.",
+    items: [
+      {
+        name: "Mini Cargo",
+        weightRange: "0–500 kg",
+        description: "Ideal for small parcels and online shops",
+        startingPrice: "From \u0E3F499",
+      },
+      {
+        name: "Standard Truck",
+        weightRange: "500–2,000 kg",
+        description: "Best for medium-sized businesses and warehouses",
+        startingPrice: "From \u0E3F1,299",
+      },
+      {
+        name: "Heavy Load",
+        weightRange: "2,000+ kg",
+        description: "For large goods and industrial machinery",
+        startingPrice: "From \u0E3F2,999",
+      },
+    ],
+    footnote: "Flexible pricing. Professional service. Tailored for every shipment.",
+  },
   aboutSection: {
     title: "About",
     content:
