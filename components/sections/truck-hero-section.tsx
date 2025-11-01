@@ -3,9 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export default function TruckHeroSection() {
-  // Remote, royalty-free background image; replace with your own if desired
-  const bgUrl =
+export default function TruckHeroSection({ bgUrl }: { bgUrl?: string }) {
+  // Fallback image if none provided via constants
+  const fallback =
     "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1920&auto=format&fit=crop";
 
   return (
@@ -17,7 +17,7 @@ export default function TruckHeroSection() {
         "flex items-center",
       )}
       style={{
-        backgroundImage: `url(${bgUrl})`,
+        backgroundImage: `url(${bgUrl || fallback})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -46,4 +46,3 @@ export default function TruckHeroSection() {
     </section>
   );
 }
-

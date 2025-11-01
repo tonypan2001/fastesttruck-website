@@ -1,5 +1,5 @@
 export const navigation = {
-  logo: "PanStudio",
+  logo: "Fastest Truck",
   menuItems: [
     { label: "Home", href: "#home" },
     { label: "What we do", href: "#what-we-do" },
@@ -14,6 +14,8 @@ export const hero = {
   heroTextWithGradient: "PanStudio",
   heroTextDetail:
     "We craft crisp, accessible interfaces with subtle 3D and purposeful motion—tuned for speed, clarity, and feel.",
+  // Truck website background image
+  bgImageUrl: "/imgs/truck-hero.png",
 };
 
 export const heroCard = {
