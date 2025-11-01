@@ -114,12 +114,10 @@ export default function RootLayout({
         <FirstVisitEffects />
         <ProgressLoader
           assets={criticalAssetPaths}
-          includeFonts={true} // รอ webfont ด้วย
-          minShowMs={900} // กันกระพริบ
+          includeFonts={true}
+          minShowMs={900}
           waitForEvents={["r3f-ready"]}
-          barColorClass="bg-white"
-          backdropClass="bg-primary"
-          text="Loading assets…"
+          backdropClass="bg-white"
         />
         {children}
       </body>

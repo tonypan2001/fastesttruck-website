@@ -9,9 +9,9 @@ export default function ProgressLoader({
   assets,
   includeFonts = true,
   minShowMs = 800,
-  barColorClass = "bg-white",
-  backdropClass = "bg-primary",
-  text = "Initializing PanStudio…",
+  barColorClass = "bg-white", // kept for backward-compat, no longer used
+  backdropClass = "bg-white",
+  text = "",
   waitForEvents = [],
   waitTimeoutMs = 20000,
 }: LoaderProps) {
@@ -244,19 +244,12 @@ export default function ProgressLoader({
         willChange: "transform, opacity",
       }}
     >
-      <div className="w-[min(88vw,520px)] space-y-5 text-center">
-        <div className="text-lg sm:text-sm font-semibold tracking-tight text-white tabular-nums">
-          {progress}%
-        </div>
-
-        <div className="h-3 w-full rounded-full bg-white/10 overflow-hidden ring-1 ring-white/10">
-          <div
-            className={`h-full ${barColorClass} transition-[width] duration-200`}
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-
-        {text ? <p className="text-white/70 text-sm">{text}</p> : null}
+      {/* Minimal spinner (no text, no progress bar) */}
+      <div className="flex items-center justify-center">
+        <div
+          aria-label="Loading"
+          className="size-12 rounded-full border-4 border-foreground/10 border-t-primary animate-spin"
+        />
       </div>
     </div>
   );
