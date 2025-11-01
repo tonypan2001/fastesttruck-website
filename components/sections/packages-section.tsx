@@ -6,11 +6,25 @@ import { Button } from "@/components/ui/button";
 
 type PackagesData = typeof sectionEN.packagesSection;
 
-export default function PackagesSection({ packages }: { packages?: PackagesData }) {
+export default function PackagesSection({
+  packages,
+}: {
+  packages?: PackagesData;
+}) {
   const data = packages ?? sectionEN.packagesSection;
   return (
-    <section id="packages" data-fv className="scroll-section relative py-16 md:py-24">
-      <div className="container mx-auto px-4">
+    <section
+      id="packages"
+      data-fv
+      className="scroll-section relative py-16 md:py-24"
+    >
+      {/* Section background image at 30% opacity */}
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-30 pointer-events-none bg-cover bg-center"
+        style={{ backgroundImage: "url(/imgs/package-section-bg.png)" }}
+      />
+      <div className="container mx-auto px-4 relative z-10">
         <header className="max-w-3xl mx-auto text-center">
           <h2 className="fv-item text-3xl md:text-5xl font-bold text-foreground">
             {data.title}
@@ -33,7 +47,9 @@ export default function PackagesSection({ packages }: { packages?: PackagesData 
               <div
                 aria-hidden
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-105 group-hover:scale-110"
-                style={{ backgroundImage: `url(${(pkg as any).imageUrl || ''})` }}
+                style={{
+                  backgroundImage: `url(${(pkg as any).imageUrl || ""})`,
+                }}
               />
               {/* Base overlay for readability */}
               <div className="absolute inset-0 bg-black/25" />
@@ -47,17 +63,26 @@ export default function PackagesSection({ packages }: { packages?: PackagesData 
                     {pkg.weightRange}
                   </span>
                 </div>
-                <p className="mt-3 text-sm text-white/85 min-h-12">{pkg.description}</p>
+                <p className="mt-3 text-sm text-white/85 min-h-12">
+                  {pkg.description}
+                </p>
               </div>
 
               <div className="relative px-6 pb-6">
                 <div className="flex items-end justify-between gap-3">
                   <div>
                     <div className="text-sm text-white/80">Starting price</div>
-                    <div className="text-2xl font-bold text-white">{pkg.startingPrice}</div>
+                    <div className="text-2xl font-bold text-white">
+                      {pkg.startingPrice}
+                    </div>
                   </div>
                   <Button size="sm" asChild className="shrink-0">
-                    <a href="#contact" aria-label={`Contact us about ${pkg.name}`}>Contact Us</a>
+                    <a
+                      href="#contact"
+                      aria-label={`Contact us about ${pkg.name}`}
+                    >
+                      Contact Us
+                    </a>
                   </Button>
                 </div>
               </div>
