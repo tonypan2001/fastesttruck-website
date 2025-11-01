@@ -23,6 +23,7 @@ const th: ContentPack = {
     ...enNavigation,
     menuItems: [
       { label: "หน้าหลัก", href: "#home" },
+      { label: "แพ็กเกจ", href: "#packages" },
       { label: "เราทำอะไร", href: "#what-we-do" },
       { label: "ผลงาน", href: "#works" },
       { label: "คำรับรอง", href: "#feedback" },

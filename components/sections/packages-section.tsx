@@ -9,8 +9,8 @@ export default function PackagesSection({ packages }: { packages?: PackagesData 
   const data = packages ?? sectionEN.packagesSection;
   return (
     <section id="packages" data-fv className="scroll-section relative py-16 md:py-24">
-      <div className="container px-4">
-        <header className="max-w-3xl">
+      <div className="container mx-auto px-4">
+        <header className="max-w-3xl mx-auto text-center">
           <h2 className="fv-item text-3xl md:text-5xl font-bold text-foreground">
             {data.title}
           </h2>
@@ -46,11 +46,10 @@ export default function PackagesSection({ packages }: { packages?: PackagesData 
           ))}
         </div>
 
-        <p className="fv-item mt-8 text-sm text-muted-foreground">
+        <p className="fv-item mt-8 text-sm text-muted-foreground text-center">
           {data.footnote}
         </p>
       </div>
     </section>
   );
 }
-

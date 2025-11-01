@@ -2,6 +2,7 @@ export const navigation = {
   logo: "FastestTruck",
   menuItems: [
     { label: "Home", href: "#home" },
+    { label: "Packages", href: "#packages" },
     { label: "What we do", href: "#what-we-do" },
     { label: "Our Works", href: "#works" },
     { label: "Feedback", href: "#feedback" },
@@ -31,7 +32,7 @@ export const heroCard = {
 
 export const section = {
   packagesSection: {
-    title: "\uD83D\uDCE6 Our Packages",
+    title: "Our Packages",
     subtitle:
       "Choose the perfect plan for your shipping needs — from small parcels to heavy industrial cargo.",
     items: [
@@ -54,7 +55,8 @@ export const section = {
         startingPrice: "From \u0E3F2,999",
       },
     ],
-    footnote: "Flexible pricing. Professional service. Tailored for every shipment.",
+    footnote:
+      "Flexible pricing. Professional service. Tailored for every shipment.",
   },
   aboutSection: {
     title: "About",
