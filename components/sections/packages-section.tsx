@@ -34,8 +34,10 @@ export default function PackagesSection({ packages }: { packages?: PackagesData 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-105 group-hover:scale-110"
                 style={{ backgroundImage: `url(${(pkg as any).imageUrl || ''})` }}
               />
-              {/* Dark overlay for readability */}
-              <div className="absolute inset-0 bg-black/40" />
+              {/* Base overlay for readability */}
+              <div className="absolute inset-0 bg-black/25" />
+              {/* Fade-in overlay on hover */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
               <div className="relative p-6 flex flex-col min-h-[220px] justify-end text-white">
                 <div className="flex items-start justify-between gap-2">
