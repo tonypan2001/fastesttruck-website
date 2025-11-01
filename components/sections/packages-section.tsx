@@ -2,6 +2,7 @@
 
 import { section as sectionEN } from "@/constants/contents";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 type PackagesData = typeof sectionEN.packagesSection;
 
@@ -50,8 +51,15 @@ export default function PackagesSection({ packages }: { packages?: PackagesData 
               </div>
 
               <div className="relative px-6 pb-6">
-                <div className="text-sm text-white/80">Starting price</div>
-                <div className="text-2xl font-bold text-white">{pkg.startingPrice}</div>
+                <div className="flex items-end justify-between gap-3">
+                  <div>
+                    <div className="text-sm text-white/80">Starting price</div>
+                    <div className="text-2xl font-bold text-white">{pkg.startingPrice}</div>
+                  </div>
+                  <Button size="sm" asChild className="shrink-0">
+                    <a href="#contact" aria-label={`Contact us about ${pkg.name}`}>Contact Us</a>
+                  </Button>
+                </div>
               </div>
             </article>
           ))}
