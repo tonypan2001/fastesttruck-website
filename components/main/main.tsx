@@ -2,7 +2,7 @@
 import { Navigation } from "../layouts/navigation";
 import { WhatWeDoSection } from "../sections/what-we-do-section";
 import { ContactSection } from "../sections/contact-section";
-import { HeroSection } from "../sections/hero-section";
+import TruckHeroSection from "../sections/truck-hero-section";
 import { SkillsSection } from "../sections/skills-section";
 import { WorksSection } from "../sections/works-section";
 import { FeedbackSection } from "../sections/feedback-section";
@@ -14,7 +14,7 @@ export default function MainPage({ lang = "en" as Lang }: { lang?: Lang }) {
   return (
     <main className="min-h-screen">
       <Navigation nav={content.navigation} />
-      <HeroSection cardPosition="left" hero={content.hero} heroCard={content.heroCard} />
+      <TruckHeroSection />
       <WhatWeDoSection whatWeDo={content.section.whatWeDoSection} />
       <WorksSection works={content.section.worksSection} />
       <SkillsSection skills={content.section.skillsSection} />
