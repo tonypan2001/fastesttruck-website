@@ -5,8 +5,6 @@ import { cn } from "@/lib/utils";
 
 export default function TruckHeroSection({ bgUrl }: { bgUrl?: string }) {
   // Fallback image if none provided via constants
-  const fallback =
-    "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1920&auto=format&fit=crop";
 
   return (
     <section
@@ -17,7 +15,7 @@ export default function TruckHeroSection({ bgUrl }: { bgUrl?: string }) {
         "flex items-center",
       )}
       style={{
-        backgroundImage: `url(${bgUrl || fallback})`,
+        backgroundImage: `url(${bgUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
