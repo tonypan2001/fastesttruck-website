@@ -135,7 +135,10 @@ export function Navigation({ nav }: { nav?: typeof navigation }) {
           <div className="shrink-0">
             <a
               href="#home"
-              className="inline-flex items-center gap-2 text-foreground"
+              className={cn(
+                "inline-flex items-center gap-2",
+                isScrolled ? "text-foreground" : "text-white"
+              )}
               onClick={(e) => {
                 e.preventDefault();
                 smoothScrollToHash('#home');
@@ -156,7 +159,7 @@ export function Navigation({ nav }: { nav?: typeof navigation }) {
               aria-hidden
               className={cn(
                 "pointer-events-none absolute left-0 bottom-0",
-                "h-1.5 bg-secondary rounded-full",
+                "h-1.5 bg-primary rounded-full",
                 "transition-[transform,width,opacity] duration-200 ease-out",
                 hoverRect.visible ? "opacity-100" : "opacity-0",
               )}
@@ -184,8 +187,10 @@ export function Navigation({ nav }: { nav?: typeof navigation }) {
                   className={cn(
                     `relative text-sm transition-colors cursor-pointer px-4 py-3 pb-4`,
                     activeSection === item.href.substring(1)
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
+                      ? (isScrolled ? "text-foreground" : "text-white")
+                      : (isScrolled
+                          ? "text-foreground/70 hover:text-primary"
+                          : "text-white/80 hover:text-primary"),
                   )}
                 >
                   {item.label}
@@ -257,6 +262,7 @@ export function Navigation({ nav }: { nav?: typeof navigation }) {
               className={cn(
                 "relative w-12 h-12",
                 mobileOpen && "z-70 text-white",
+                !isScrolled && !mobileOpen && "text-white",
               )}
               onClick={() => setMobileOpen((v) => !v)}
             >
