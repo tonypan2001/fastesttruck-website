@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { criticalAssetPaths } from "@/constants/paths";
 import ProgressLoader from "@/components/layouts/progress-loader";
@@ -68,11 +68,12 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    themeColor: "#111827",
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#111827",
 };
 
 export default function RootLayout({
@@ -115,8 +116,7 @@ export default function RootLayout({
         <ProgressLoader
           assets={criticalAssetPaths}
           includeFonts={true}
-          minShowMs={900}
-          waitForEvents={["r3f-ready"]}
+          minShowMs={700}
           backdropClass="bg-white"
         />
         {children}
