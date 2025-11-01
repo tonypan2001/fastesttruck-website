@@ -22,7 +22,7 @@ export default function TruckHeroSection({ bgUrl }: { bgUrl?: string }) {
       aria-label="Hero - Truck Logistics"
     >
       {/* Dark overlay to focus on text */}
-      <div className="absolute inset-0 bg-black/55" />
+      <div className="absolute inset-0 bg-black/40" />
 
       {/* Content */}
       <div className="container relative z-10 px-4 md:px-6 pt-24 md:pt-32 pb-14 md:pb-20">
