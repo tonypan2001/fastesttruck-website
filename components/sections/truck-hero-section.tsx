@@ -3,8 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEffect, useMemo, useState } from "react";
+import { ChevronDown } from "lucide-react";
 
-export default function TruckHeroSection({ bgImages }: { bgImages?: string[] }) {
+export default function TruckHeroSection({
+  bgImages,
+}: {
+  bgImages?: string[];
+}) {
   // Collect images from props, ignore empty values; ensure at least one fallback
   const images = useMemo(() => {
     const arr = (bgImages || []).filter(Boolean);
@@ -14,7 +19,10 @@ export default function TruckHeroSection({ bgImages }: { bgImages?: string[] }) 
   const [active, setActive] = useState(0);
   useEffect(() => {
     if (images.length <= 1) return;
-    const id = setInterval(() => setActive((i) => (i + 1) % images.length), 6000);
+    const id = setInterval(
+      () => setActive((i) => (i + 1) % images.length),
+      6000,
+    );
     return () => clearInterval(id);
   }, [images.length]);
 
@@ -61,6 +69,27 @@ export default function TruckHeroSection({ bgImages }: { bgImages?: string[] }) 
             </Button>
           </div>
         </div>
+      </div>
+
+      {/* Scroll-down button to Packages */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20">
+        <button
+          type="button"
+          aria-label="Scroll to packages"
+          onClick={() => {
+            const el = document.getElementById("packages");
+            if (!el) return;
+            const navHeight = 80;
+            const rect = el.getBoundingClientRect();
+            const absoluteTop =
+              rect.top + (window.scrollY || window.pageYOffset);
+            const targetY = Math.max(0, absoluteTop - navHeight);
+            window.scrollTo({ top: targetY, behavior: "smooth" });
+          }}
+          className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-white/40 bg-white/10 text-white hover:bg-white/20 backdrop-blur cursor-pointer"
+        >
+          <ChevronDown className="w-6 h-6" />
+        </button>
       </div>
     </section>
   );
