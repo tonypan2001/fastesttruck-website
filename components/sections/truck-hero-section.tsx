@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 export default function TruckHeroSection({
@@ -17,6 +17,8 @@ export default function TruckHeroSection({
   }, [bgImages]);
 
   const [active, setActive] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+  const rafTick = useRef(false);
   useEffect(() => {
     if (images.length <= 1) return;
     const id = setInterval(
@@ -25,6 +27,21 @@ export default function TruckHeroSection({
     );
     return () => clearInterval(id);
   }, [images.length]);
+
+  // Parallax background: move slightly on scroll for depth
+  useEffect(() => {
+    const onScroll = () => {
+      if (rafTick.current) return;
+      rafTick.current = true;
+      requestAnimationFrame(() => {
+        setScrollY(window.scrollY || 0);
+        rafTick.current = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <section
@@ -45,7 +62,11 @@ export default function TruckHeroSection({
               "absolute inset-0 bg-cover bg-center transition-opacity duration-1000",
               i === active ? "opacity-100" : "opacity-0",
             )}
-            style={{ backgroundImage: `url(${src})` }}
+            style={{
+              backgroundImage: `url(${src})`,
+              transform: `translateY(${Math.round((i === active ? 0.2 : 0.1) * scrollY)}px)`,
+              willChange: "transform, opacity",
+            }}
           />
         ))}
       </div>
