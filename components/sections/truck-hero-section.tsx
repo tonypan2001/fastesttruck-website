@@ -86,7 +86,7 @@ export default function TruckHeroSection({
 
           <div className="fv-item mt-8">
             <Button size="lg" asChild className="cursor-pointer">
-              <a href="#contact">Start Shipping Now</a>
+              <a href="#packages">Start Shipping Now</a>
             </Button>
           </div>
         </div>

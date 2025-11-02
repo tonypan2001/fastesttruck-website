@@ -1,11 +1,7 @@
 "use client";
 import { Navigation } from "../layouts/navigation";
-import { WhatWeDoSection } from "../sections/what-we-do-section";
-import { ContactSection } from "../sections/contact-section";
 import TruckHeroSection from "../sections/truck-hero-section";
 import PackagesSection from "../sections/packages-section";
-import { SkillsSection } from "../sections/skills-section";
-import { WorksSection } from "../sections/works-section";
 import { FeedbackSection } from "../sections/feedback-section";
 import { Footer } from "../layouts/footer";
 import { getContent, Lang } from "@/constants/i18n";
@@ -18,10 +14,6 @@ export default function MainPage({ lang = "en" as Lang }: { lang?: Lang }) {
       <TruckHeroSection bgImages={content.hero.bgImages} />
       <PackagesSection packages={content.section.packagesSection} />
       <FeedbackSection feedback={content.section.feedbackSection} />
-      <WhatWeDoSection whatWeDo={content.section.whatWeDoSection} />
-      <WorksSection works={content.section.worksSection} />
-      <SkillsSection skills={content.section.skillsSection} />
-      <ContactSection contact={content.section.contactSection} />
       <Footer footer={content.section.footerSection} />
     </main>
   );

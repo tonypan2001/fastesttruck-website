@@ -109,7 +109,7 @@ export function FeedbackSection({
                 </p>
 
                 {/* Truck image scrubs in as you scroll down; reverses when scrolling up while pinned */}
-                <ScrubIn className="mt-16" progress={progress}>
+                <ScrubIn className="mt-20" progress={progress}>
                   <img
                     src="/imgs/truck-slide-anim.png"
                     alt="FastestTruck"
@@ -122,10 +122,10 @@ export function FeedbackSection({
                 </ScrubIn>
               </div>
 
-          {/* Cards (right) */}
-          <div className="mt-8 lg:mt-0 lg:col-span-2 lg:ml-24 xl:ml-32">
-            <div className="grid grid-cols-2 gap-2 md:gap-3 justify-center lg:justify-end lg:max-w-[620px] lg:ml-auto">
-              {items.map((t, idx) => (
+              {/* Cards (right) */}
+              <div className="mt-8 lg:mt-0 lg:col-span-2 lg:ml-24 xl:ml-32">
+                <div className="grid grid-cols-2 gap-2 md:gap-3 justify-center lg:justify-end lg:max-w-[620px] lg:ml-auto">
+                  {items.map((t, idx) => (
                     <Card
                       key={`${t.name}-${idx}`}
                       className="w-full backdrop-blur-sm bg-card/80 border-border/60 hover:shadow-md transition-transform duration-300 ease-out hover:-translate-y-1"

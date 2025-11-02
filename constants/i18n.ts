@@ -24,10 +24,7 @@ const th: ContentPack = {
     menuItems: [
       { label: "หน้าหลัก", href: "#home" },
       { label: "แพ็กเกจ", href: "#packages" },
-      { label: "เราทำอะไร", href: "#what-we-do" },
-      { label: "ผลงาน", href: "#works" },
       { label: "คำรับรอง", href: "#feedback" },
-      { label: "ติดต่อ", href: "#contact" },
     ],
   },
   hero: {

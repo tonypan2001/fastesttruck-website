@@ -78,10 +78,10 @@ export default function PackagesSection({
                   </div>
                   <Button size="sm" asChild className="shrink-0">
                     <a
-                      href="#contact"
-                      aria-label={`Contact us about ${pkg.name}`}
+                      href="#packages"
+                      aria-label={`Learn more about ${pkg.name}`}
                     >
-                      Contact Us
+                      Learn More
                     </a>
                   </Button>
                 </div>
