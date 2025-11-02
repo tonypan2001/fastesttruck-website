@@ -36,9 +36,7 @@ export function FeedbackSection({
 
   // Pinning + scroll-scrubbing state
   const pinContainerRef = useRef<HTMLDivElement | null>(null);
-  const [progress, setProgress] = useState(0); // 0..1 forward only
-  const maxProgressRef = useRef(0);
-  const lastYRef = useRef<number | null>(null);
+  const [progress, setProgress] = useState(0); // 0..1
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -55,15 +53,9 @@ export function FeedbackSection({
       const inPinnedZone = r.top <= 0 && r.bottom >= vh;
       const beforePinned = r.top > 0; // section not yet pinned
 
-      const y = window.scrollY;
-      const lastY = lastYRef.current ?? y;
-      const scrollingDown = y >= lastY;
-      lastYRef.current = y;
-
       const visible = r.top < vh && r.bottom > 0;
       if (!visible) {
         // Reset when leaving the section entirely
-        maxProgressRef.current = 0;
         setProgress(0);
         return;
       }
@@ -78,14 +70,14 @@ export function FeedbackSection({
       const distanceIntoPinned = Math.min(total, Math.max(0, -r.top));
       const pRaw = Math.min(1, distanceIntoPinned / total);
 
-      if (scrollingDown) {
-        const m = Math.max(maxProgressRef.current, pRaw);
-        if (m !== maxProgressRef.current) maxProgressRef.current = m;
-        setProgress(m);
-      } else {
-        // On upward scroll, hold the last max (no reverse)
-        setProgress(maxProgressRef.current);
+      if (inPinnedZone) {
+        // While pinned, scrub both directions (reverse on upward scroll)
+        setProgress(pRaw);
+        return;
       }
+
+      // After pinned (scrolled past), clamp at 1
+      setProgress(1);
     };
 
     compute();
@@ -98,91 +90,97 @@ export function FeedbackSection({
   }, []);
 
   return (
-    <section id="feedback" data-fv className="scroll-section relative bg-background">
+    <section
+      id="feedback"
+      data-fv
+      className="scroll-section relative bg-background"
+    >
       <div ref={pinContainerRef} className="relative h-[200svh]">
         <div className="sticky top-0 h-[100svh] flex items-center justify-center">
           <div className="container px-4 py-16 md:py-24 relative z-10">
-        <div className="lg:grid lg:grid-cols-3 lg:gap-4 items-start">
-          {/* Header (left) */}
-          <div>
-            <h2 className="fv-item text-4xl md:text-5xl font-bold text-left text-foreground">
-              {data.title}
-            </h2>
-            <p className="fv-item mt-3 md:mt-4 max-w-xl text-left text-muted-foreground">
-              {data.subtitle ?? "Real words from teams we partnered with."}
-            </p>
+            <div className="lg:grid lg:grid-cols-3 lg:gap-4 items-start">
+              {/* Header (left) */}
+              <div>
+                <h2 className="fv-item text-4xl md:text-5xl font-bold text-left text-foreground">
+                  {data.title}
+                </h2>
+                <p className="fv-item mt-3 md:mt-4 max-w-xl text-left text-muted-foreground">
+                  {data.subtitle ?? "Real words from teams we partnered with."}
+                </p>
 
-            {/* Truck image scrubs in as you scroll down; holds when scrolling up */}
-            <ScrubIn className="mt-6" progress={progress}>
-              <img
-                src="/imgs/truck-slide-anim.png"
-                alt="FastestTruck"
-                width={612}
-                height={408}
-                loading="lazy"
-                decoding="async"
-                className="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto drop-shadow-xl scale-[2] origin-left"
-              />
-            </ScrubIn>
-          </div>
+                {/* Truck image scrubs in as you scroll down; reverses when scrolling up while pinned */}
+                <ScrubIn className="mt-16" progress={progress}>
+                  <img
+                    src="/imgs/truck-slide-anim.png"
+                    alt="FastestTruck"
+                    width={612}
+                    height={408}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto drop-shadow-xl scale-[2] origin-left"
+                  />
+                </ScrubIn>
+              </div>
 
-          {/* Cards (right) */}
-          <div className="mt-8 lg:mt-0 lg:col-span-2">
-            <div className="grid grid-cols-3 gap-2 md:gap-3 justify-center">
-              {items.map((t, idx) => (
-                <Card
-                  key={`${t.name}-${idx}`}
-                  className="w-full backdrop-blur-sm bg-card/80 border-border/60 hover:shadow-md transition-transform duration-300 ease-out hover:-translate-y-1"
-                >
-                  <CardHeader className="p-3">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={t.avatar}
-                        alt={`${t.name} avatar`}
-                        width={40}
-                        height={40}
-                        className="w-10 h-10 rounded-full object-cover ring-2 ring-border/60"
-                        loading="lazy"
-                        decoding="async"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="min-w-0 text-left">
-                        <CardTitle className="text-sm leading-tight truncate">
-                          {t.name}
-                        </CardTitle>
-                        <CardDescription className="text-[11px] leading-tight truncate">
-                          {t.role}
-                          {t.company ? ` • ${t.company}` : ""}
-                        </CardDescription>
-                      </div>
-                    </div>
-                    <div
-                      className="mt-1 flex items-center gap-1"
-                      aria-label={`Rating ${t.rating} out of 5`}
+              {/* Cards (right) */}
+              <div className="mt-8 lg:mt-0 lg:col-span-2">
+                <div className="grid grid-cols-3 gap-2 md:gap-3 justify-center">
+                  {items.map((t, idx) => (
+                    <Card
+                      key={`${t.name}-${idx}`}
+                      className="w-full backdrop-blur-sm bg-card/80 border-border/60 hover:shadow-md transition-transform duration-300 ease-out hover:-translate-y-1"
                     >
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={
-                            i < (t.rating || 0)
-                              ? "w-3.5 h-3.5 text-primary"
-                              : "w-3.5 h-3.5 text-muted-foreground"
-                          }
-                          fill={i < (t.rating || 0) ? "currentColor" : "none"}
-                        />
-                      ))}
-                    </div>
-                  </CardHeader>
-                  <CardContent className="px-3 pb-3">
-                    <blockquote className="text-center text-[11px] text-muted-foreground italic overflow-hidden">
-                      “{t.quote}”
-                    </blockquote>
-                  </CardContent>
-                </Card>
-              ))}
+                      <CardHeader className="p-3">
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={t.avatar}
+                            alt={`${t.name} avatar`}
+                            width={40}
+                            height={40}
+                            className="w-10 h-10 rounded-full object-cover ring-2 ring-border/60"
+                            loading="lazy"
+                            decoding="async"
+                            referrerPolicy="no-referrer"
+                          />
+                          <div className="min-w-0 text-left">
+                            <CardTitle className="text-sm leading-tight truncate">
+                              {t.name}
+                            </CardTitle>
+                            <CardDescription className="text-[11px] leading-tight truncate">
+                              {t.role}
+                              {t.company ? ` • ${t.company}` : ""}
+                            </CardDescription>
+                          </div>
+                        </div>
+                        <div
+                          className="mt-1 flex items-center gap-1"
+                          aria-label={`Rating ${t.rating} out of 5`}
+                        >
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star
+                              key={i}
+                              className={
+                                i < (t.rating || 0)
+                                  ? "w-3.5 h-3.5 text-primary"
+                                  : "w-3.5 h-3.5 text-muted-foreground"
+                              }
+                              fill={
+                                i < (t.rating || 0) ? "currentColor" : "none"
+                              }
+                            />
+                          ))}
+                        </div>
+                      </CardHeader>
+                      <CardContent className="px-3 pb-3">
+                        <blockquote className="text-center text-[11px] text-muted-foreground italic overflow-hidden">
+                          “{t.quote}”
+                        </blockquote>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
           </div>
         </div>
       </div>
@@ -202,7 +200,10 @@ function ScrubIn({
   const translate = -40 * (1 - progress); // -40px -> 0
   const opacity = Math.max(0, Math.min(1, progress));
   return (
-    <div className={cn("will-change-transform", className)} style={{ transform: `translateX(${translate}px)`, opacity }}>
+    <div
+      className={cn("will-change-transform", className)}
+      style={{ transform: `translateX(${translate}px)`, opacity }}
+    >
       {children}
     </div>
   );
