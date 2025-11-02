@@ -72,7 +72,7 @@ export default function FirstVisitEffects() {
         const io = new IntersectionObserver(onIntersect, {
           root: null,
           rootMargin: "0px",
-          threshold: 0.1,
+          threshold: 0.3,
         });
 
         for (const s of sections) {
@@ -84,7 +84,7 @@ export default function FirstVisitEffects() {
           document
             .querySelectorAll<HTMLElement>('section[data-fv].fv-await')
             .forEach((s) => {
-              if (isInViewport(s, 0.22)) {
+              if (isInViewport(s, 0.5)) {
                 s.classList.add("fv-show");
                 s.classList.remove("fv-await");
                 io.unobserve(s);
@@ -106,8 +106,7 @@ export default function FirstVisitEffects() {
           }
         };
         window.addEventListener("scroll", checkAllShown, { passive: true });
-        // Also check once after setup (in case all sections are already visible)
-        checkManual();
+        // Avoid showing near-threshold sections immediately; wait for user interaction
         checkAllShown();
         // Cleanup listener on unmount
         return () => {

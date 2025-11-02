@@ -126,10 +126,10 @@ export function FeedbackSection({
               <div className="mt-8 lg:mt-0 lg:col-span-2 lg:ml-24 xl:ml-32">
                 <div className="grid grid-cols-2 gap-2 md:gap-3 justify-center lg:justify-end lg:max-w-[620px] lg:ml-auto">
                   {items.map((t, idx) => (
-                    <Card
-                      key={`${t.name}-${idx}`}
-                      className="w-full backdrop-blur-sm bg-card/80 border-border/60 hover:shadow-md transition-transform duration-300 ease-out hover:-translate-y-1"
-                    >
+                <Card
+                  key={`${t.name}-${idx}`}
+                  className="fv-item w-full backdrop-blur-sm bg-card/80 border-border/60 hover:shadow-md transition-transform duration-300 ease-out hover:-translate-y-1"
+                >
                       <CardHeader className="p-3">
                         <div className="flex items-center gap-3">
                           <img
