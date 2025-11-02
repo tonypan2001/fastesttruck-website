@@ -48,8 +48,12 @@ export function FeedbackSection({
     const compute = () => {
       const r = container.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
-      const total = Math.max(1, r.height - vh);
-      const pRaw = Math.min(1, Math.max(0, (vh - r.top) / total));
+      const total = Math.max(1, r.height - vh); // duration while sticky is pinned
+
+      // Only start scrubbing once the sticky region is actually pinned (r.top <= 0)
+      // Progress is how far we've scrolled through the pinned distance (0..1)
+      const inPinnedZone = r.top <= 0 && r.bottom >= vh;
+      const beforePinned = r.top > 0; // section not yet pinned
 
       const y = window.scrollY;
       const lastY = lastYRef.current ?? y;
@@ -58,11 +62,21 @@ export function FeedbackSection({
 
       const visible = r.top < vh && r.bottom > 0;
       if (!visible) {
-        // Reset when leaving the pinned area
+        // Reset when leaving the section entirely
         maxProgressRef.current = 0;
         setProgress(0);
         return;
       }
+
+      if (beforePinned) {
+        // Do not start animation before the section pins
+        setProgress(0);
+        return;
+      }
+
+      // When pinned, compute progress based on how far container has scrolled past the top
+      const distanceIntoPinned = Math.min(total, Math.max(0, -r.top));
+      const pRaw = Math.min(1, distanceIntoPinned / total);
 
       if (scrollingDown) {
         const m = Math.max(maxProgressRef.current, pRaw);
