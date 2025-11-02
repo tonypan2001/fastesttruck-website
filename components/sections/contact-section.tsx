@@ -55,7 +55,7 @@ export function ContactSection({ contact }: { contact?: ContactData }) {
     <section
       id="contact"
       data-fv
-      className="scroll-section relative min-h-svh flex items-center py-16 md:py-24 bg-background"
+      className="scroll-section relative py-16 md:py-24 bg-background"
       aria-label="Contact"
     >
       {/* Background image at 30% opacity with top fade */}
@@ -68,11 +68,11 @@ export function ContactSection({ contact }: { contact?: ContactData }) {
         aria-hidden
         className="absolute inset-x-0 top-0 h-40 md:h-56 bg-linear-to-b from-background to-transparent pointer-events-none"
       />
-      <div className="container mx-auto px-4 relative z-10 h-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full items-center">
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* Left: Contact details (glass card with glow) */}
-          <div className="self-stretch h-full flex">
-            <div className="h-full w-full rounded-2xl border border-white/25 dark:border-white/15 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-300 p-4 md:p-6 hover:border-primary/60 hover:shadow-[0_0_0_2px_rgba(249,115,22,0.35),0_0_28px_rgba(249,115,22,0.35)]">
+          <div className="flex">
+            <div className="w-full rounded-2xl border border-white/25 dark:border-white/15 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-300 p-4 md:p-6 hover:border-primary/60 hover:shadow-[0_0_0_2px_rgba(249,115,22,0.35),0_0_28px_rgba(249,115,22,0.35)]">
               <h2 className="fv-item text-3xl md:text-5xl font-bold text-foreground">
                 {data.title}
               </h2>
@@ -116,8 +116,8 @@ export function ContactSection({ contact }: { contact?: ContactData }) {
           </div>
 
           {/* Right: Contact form (glass card with glow) */}
-          <div className="fv-item lg:pl-6 self-stretch h-full flex flex-col">
-            <div className="h-full w-full rounded-2xl border border-white/25 dark:border-white/15 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-300 p-4 md:p-6 hover:border-primary/60 hover:shadow-[0_0_0_2px_rgba(249,115,22,0.35),0_0_28px_rgba(249,115,22,0.35)]">
+          <div className="fv-item lg:pl-6 flex flex-col">
+            <div className="w-full rounded-2xl border border-white/25 dark:border-white/15 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-300 p-4 md:p-6 hover:border-primary/60 hover:shadow-[0_0_0_2px_rgba(249,115,22,0.35),0_0_28px_rgba(249,115,22,0.35)]">
               <form onSubmit={onSubmit} className="max-w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
