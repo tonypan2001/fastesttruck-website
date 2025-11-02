@@ -61,7 +61,7 @@ export function ContactSection({ contact }: { contact?: ContactData }) {
       {/* Background image at 30% opacity with top fade */}
       <div
         aria-hidden
-        className="absolute inset-0 opacity-40 bg-cover bg-center pointer-events-none"
+        className="absolute inset-0 opacity-30 bg-cover bg-center pointer-events-none"
         style={{ backgroundImage: "url(/imgs/truck-contact-bg.png)" }}
       />
       <div
@@ -70,108 +70,115 @@ export function ContactSection({ contact }: { contact?: ContactData }) {
       />
       <div className="container mx-auto px-4 relative z-10 h-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full items-center">
-          {/* Left: Contact details */}
-          <div className="self-start">
-            <h2 className="fv-item text-3xl md:text-5xl font-bold text-foreground">
-              {data.title}
-            </h2>
-            {data.subtitle ? (
-              <p className="fv-item mt-3 md:mt-4 text-muted-foreground md:text-lg max-w-prose">
-                {data.subtitle}
-              </p>
-            ) : null}
+          {/* Left: Contact details (glass card with glow) */}
+          <div className="self-stretch h-full flex">
+            <div className="h-full w-full rounded-2xl border border-white/25 dark:border-white/15 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-300 p-4 md:p-6 hover:border-primary/60 hover:shadow-[0_0_0_2px_rgba(249,115,22,0.35),0_0_28px_rgba(249,115,22,0.35)]">
+              <h2 className="fv-item text-3xl md:text-5xl font-bold text-foreground">
+                {data.title}
+              </h2>
+              {data.subtitle ? (
+                <p className="fv-item mt-3 md:mt-4 text-muted-foreground md:text-lg max-w-prose">
+                  {data.subtitle}
+                </p>
+              ) : null}
 
-            <ul className="mt-6 space-y-3">
-              {data.email ? (
-                <li className="fv-item flex items-center gap-3 text-foreground/90">
-                  <Mail className="w-5 h-5 text-primary" />
-                  <a
-                    className="hover:text-primary"
-                    href={`mailto:${data.email}`}
-                  >
-                    {data.email}
-                  </a>
-                </li>
-              ) : null}
-              {data.phone ? (
-                <li className="fv-item flex items-center gap-3 text-foreground/90">
-                  <Phone className="w-5 h-5 text-primary" />
-                  <a className="hover:text-primary" href={`tel:${data.phone}`}>
-                    {data.phone}
-                  </a>
-                </li>
-              ) : null}
-              {data.lineId ? (
-                <li className="fv-item flex items-center gap-3 text-foreground/90">
-                  <MessageCircle className="w-5 h-5 text-primary" />
-                  <span>LINE ID: {data.lineId}</span>
-                </li>
-              ) : null}
-            </ul>
+              <ul className="mt-6 space-y-3">
+                {data.email ? (
+                  <li className="fv-item flex items-center gap-3 text-foreground/90">
+                    <Mail className="w-5 h-5 text-primary" />
+                    <a
+                      className="hover:text-primary"
+                      href={`mailto:${data.email}`}
+                    >
+                      {data.email}
+                    </a>
+                  </li>
+                ) : null}
+                {data.phone ? (
+                  <li className="fv-item flex items-center gap-3 text-foreground/90">
+                    <Phone className="w-5 h-5 text-primary" />
+                    <a
+                      className="hover:text-primary"
+                      href={`tel:${data.phone}`}
+                    >
+                      {data.phone}
+                    </a>
+                  </li>
+                ) : null}
+                {data.lineId ? (
+                  <li className="fv-item flex items-center gap-3 text-foreground/90">
+                    <MessageCircle className="w-5 h-5 text-primary" />
+                    <span>LINE ID: {data.lineId}</span>
+                  </li>
+                ) : null}
+              </ul>
+            </div>
           </div>
 
-          {/* Right: Contact form */}
-          <div className="fv-item lg:pl-6 self-stretch h-full flex flex-col p-4 md:p-6">
-            <form onSubmit={onSubmit} className="max-w-full">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm text-foreground mb-1">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Your name"
-                    className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  />
+          {/* Right: Contact form (glass card with glow) */}
+          <div className="fv-item lg:pl-6 self-stretch h-full flex flex-col">
+            <div className="h-full w-full rounded-2xl border border-white/25 dark:border-white/15 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-300 p-4 md:p-6 hover:border-primary/60 hover:shadow-[0_0_0_2px_rgba(249,115,22,0.35),0_0_28px_rgba(249,115,22,0.35)]">
+              <form onSubmit={onSubmit} className="max-w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm text-foreground mb-1">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Your name"
+                      className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-foreground mb-1">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@example.com"
+                      className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm text-foreground mb-1">
+                      Phone
+                    </label>
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="08x-xxx-xxxx"
+                      className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm text-foreground mb-1">
+                      Message
+                    </label>
+                    <textarea
+                      required
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Tell us a bit about your shipment, timeline, or questions."
+                      rows={6}
+                      className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-sm text-foreground mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label className="block text-sm text-foreground mb-1">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="08x-xxx-xxxx"
-                    className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label className="block text-sm text-foreground mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    required
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Tell us a bit about your shipment, timeline, or questions."
-                    rows={6}
-                    className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  />
-                </div>
-              </div>
 
-              <div className="mt-4 flex items-center justify-end">
-                <Button type="submit" disabled={submitting}>
-                  {submitting ? "Opening mail…" : "Send Message"}
-                </Button>
-              </div>
-            </form>
+                <div className="mt-4 flex items-center justify-end">
+                  <Button type="submit" disabled={submitting}>
+                    {submitting ? "Opening mail…" : "Send Message"}
+                  </Button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
