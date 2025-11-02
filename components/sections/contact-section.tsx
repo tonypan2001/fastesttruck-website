@@ -62,8 +62,13 @@ export function ContactSection({
       className="scroll-section relative py-16 md:py-24 bg-background"
       aria-label="Contact"
     >
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Full-height right-half background (only on large screens) */}
+      <div
+        aria-hidden
+        className="hidden lg:block absolute inset-y-0 right-0 w-1/2 bg-primary"
+      />
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* Left: Contact details */}
           <div>
             <h2 className="fv-item text-3xl md:text-5xl font-bold text-foreground">
@@ -101,15 +106,12 @@ export function ContactSection({
             </ul>
           </div>
 
-          {/* Right: Contact form */}
-          <div className="lg:pl-6">
-            <form
-              onSubmit={onSubmit}
-              className="fv-item rounded-xl border border-border/60 bg-card/80 backdrop-blur p-4 md:p-6 shadow-sm"
-            >
+          {/* Right: Contact form (full-height/right-half colored on lg+) */}
+          <div className="fv-item lg:pl-6 self-stretch h-full flex flex-col lg:text-primary-foreground p-4 md:p-6">
+            <form onSubmit={onSubmit} className="max-w-full">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-muted-foreground mb-1">
+                  <label className="block text-sm lg:text-primary-foreground/90 text-muted-foreground mb-1">
                     Name
                   </label>
                   <input
@@ -122,7 +124,7 @@ export function ContactSection({
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-muted-foreground mb-1">
+                  <label className="block text-sm lg:text-primary-foreground/90 text-muted-foreground mb-1">
                     Email
                   </label>
                   <input
@@ -134,7 +136,7 @@ export function ContactSection({
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm text-muted-foreground mb-1">
+                  <label className="block text-sm lg:text-primary-foreground/90 text-muted-foreground mb-1">
                     Phone
                   </label>
                   <input
@@ -146,7 +148,7 @@ export function ContactSection({
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm text-muted-foreground mb-1">
+                  <label className="block text-sm lg:text-primary-foreground/90 text-muted-foreground mb-1">
                     Message
                   </label>
                   <textarea
@@ -174,4 +176,3 @@ export function ContactSection({
 }
 
 export default ContactSection;
-
