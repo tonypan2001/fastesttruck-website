@@ -13,11 +13,7 @@ type ContactData = {
   lineId?: string;
 };
 
-export function ContactSection({
-  contact,
-}: {
-  contact?: ContactData;
-}) {
+export function ContactSection({ contact }: { contact?: ContactData }) {
   const data = useMemo<ContactData>(() => {
     const d = (contact as any) ?? (sectionEN as any).contactSection ?? {};
     return {
@@ -59,9 +55,19 @@ export function ContactSection({
     <section
       id="contact"
       data-fv
-      className="scroll-section relative min-h-[100svh] flex items-center py-16 md:py-24 bg-background"
+      className="scroll-section relative min-h-svh flex items-center py-16 md:py-24 bg-background"
       aria-label="Contact"
     >
+      {/* Background image at 30% opacity with top fade */}
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-40 bg-cover bg-center pointer-events-none"
+        style={{ backgroundImage: "url(/imgs/truck-contact-bg.png)" }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-40 md:h-56 bg-linear-to-b from-background to-transparent pointer-events-none"
+      />
       <div className="container mx-auto px-4 relative z-10 h-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full items-center">
           {/* Left: Contact details */}
@@ -79,7 +85,10 @@ export function ContactSection({
               {data.email ? (
                 <li className="fv-item flex items-center gap-3 text-foreground/90">
                   <Mail className="w-5 h-5 text-primary" />
-                  <a className="hover:text-primary" href={`mailto:${data.email}`}>
+                  <a
+                    className="hover:text-primary"
+                    href={`mailto:${data.email}`}
+                  >
                     {data.email}
                   </a>
                 </li>
