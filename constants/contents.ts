@@ -84,6 +84,14 @@ export const section = {
       },
     ],
   },
+  contactSection: {
+    title: "Contact Us",
+    subtitle:
+      "Reach out for quotes, schedules, or any questions. We're here to help.",
+    email: "prompan.ue@gmail.com",
+    phone: "080-000-0000",
+    lineId: "your-line-id",
+  },
   footerSection: {
     title: "FastestTruck",
     content: "© 2025 FastestTruck — Designed & Built by Prompan Uechanwech",

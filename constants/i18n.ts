@@ -45,11 +45,19 @@ const th: ContentPack = {
     ],
   },
   section: {
-    // carry over only the sections still in use
+    // carry over the sections in use
     packagesSection: enSection.packagesSection,
     feedbackSection: {
       ...enSection.feedbackSection,
       title: "เสียงจากลูกค้า",
+    },
+    contactSection: {
+      title: "ติดต่อเรา",
+      subtitle:
+        "สอบถามราคา ตารางวิ่ง หรือรายละเอียดอื่น ๆ ได้เลย เรายินดีช่วยเหลือ",
+      email: enSection.contactSection?.email || "prompan.ue@gmail.com",
+      phone: enSection.contactSection?.phone || "080-000-0000",
+      lineId: enSection.contactSection?.lineId || "your-line-id",
     },
     footerSection: {
       ...enSection.footerSection,
