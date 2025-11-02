@@ -19,7 +19,7 @@ export function FeedbackSection({
 }) {
   const data = feedback ?? sectionEN.feedbackSection;
   const base = data?.testimonials ?? [];
-  // Ensure exactly 4 items by repeating/padding
+  // Ensure exactly 6 items by repeating/padding
   const placeholder = {
     name: "Happy Customer",
     role: "Business Owner",
@@ -30,7 +30,7 @@ export function FeedbackSection({
     quote: "Reliable service and timely delivery every time!",
   };
   const items = Array.from(
-    { length: 4 },
+    { length: 6 },
     (_, i) => base[i % (base.length || 1)] || placeholder,
   );
 
