@@ -111,7 +111,7 @@ export function ContactSection({
             <form onSubmit={onSubmit} className="max-w-full">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm lg:text-primary-foreground/90 text-muted-foreground mb-1">
+                  <label className="block text-sm lg:text-primary-foreground text-foreground mb-1">
                     Name
                   </label>
                   <input
@@ -120,11 +120,11 @@ export function ContactSection({
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your name"
-                    className="w-full rounded-md border border-border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm lg:text-primary-foreground/90 text-muted-foreground mb-1">
+                  <label className="block text-sm lg:text-primary-foreground text-foreground mb-1">
                     Email
                   </label>
                   <input
@@ -132,11 +132,11 @@ export function ContactSection({
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full rounded-md border border-border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm lg:text-primary-foreground/90 text-muted-foreground mb-1">
+                  <label className="block text-sm lg:text-primary-foreground text-foreground mb-1">
                     Phone
                   </label>
                   <input
@@ -144,11 +144,11 @@ export function ContactSection({
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="08x-xxx-xxxx"
-                    className="w-full rounded-md border border-border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm lg:text-primary-foreground/90 text-muted-foreground mb-1">
+                  <label className="block text-sm lg:text-primary-foreground text-foreground mb-1">
                     Message
                   </label>
                   <textarea
@@ -157,7 +157,7 @@ export function ContactSection({
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Tell us a bit about your shipment, timeline, or questions."
                     rows={6}
-                    className="w-full rounded-md border border-border bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    className="w-full rounded-none border border-border bg-background px-3 py-2 text-foreground placeholder:text-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
               </div>
