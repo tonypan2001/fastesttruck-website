@@ -19,7 +19,7 @@ export function FeedbackSection({
 }) {
   const data = feedback ?? sectionEN.feedbackSection;
   const base = data?.testimonials ?? [];
-  // Ensure exactly 9 items by repeating/padding
+  // Ensure exactly 4 items by repeating/padding
   const placeholder = {
     name: "Happy Customer",
     role: "Business Owner",
@@ -30,7 +30,7 @@ export function FeedbackSection({
     quote: "Reliable service and timely delivery every time!",
   };
   const items = Array.from(
-    { length: 9 },
+    { length: 4 },
     (_, i) => base[i % (base.length || 1)] || placeholder,
   );
 
@@ -122,10 +122,10 @@ export function FeedbackSection({
                 </ScrubIn>
               </div>
 
-              {/* Cards (right) */}
-              <div className="mt-8 lg:mt-0 lg:col-span-2">
-                <div className="grid grid-cols-3 gap-2 md:gap-3 justify-center">
-                  {items.map((t, idx) => (
+          {/* Cards (right) */}
+          <div className="mt-8 lg:mt-0 lg:col-span-2 lg:ml-24 xl:ml-32">
+            <div className="grid grid-cols-2 gap-2 md:gap-3 justify-center lg:justify-end lg:max-w-[620px] lg:ml-auto">
+              {items.map((t, idx) => (
                     <Card
                       key={`${t.name}-${idx}`}
                       className="w-full backdrop-blur-sm bg-card/80 border-border/60 hover:shadow-md transition-transform duration-300 ease-out hover:-translate-y-1"
