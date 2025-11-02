@@ -95,12 +95,12 @@ export function FeedbackSection({
       data-fv
       className="scroll-section relative bg-background"
     >
-      <div ref={pinContainerRef} className="relative h-[200svh]">
+      <div ref={pinContainerRef} className="relative h-[160svh] md:h-[200svh]">
         <div className="sticky top-0 h-[100svh] flex items-center justify-center">
-          <div className="container px-4 py-16 md:py-24 relative z-10">
-            <div className="lg:grid lg:grid-cols-3 lg:gap-4 items-start">
+          <div className="container px-4 py-12 md:py-24 relative z-10">
+            <div className="lg:grid lg:grid-cols-3 lg:gap-6 items-start">
               {/* Header (left) */}
-              <div>
+              <div className="mb-6 md:mb-0">
                 <h2 className="fv-item text-4xl md:text-5xl font-bold text-left text-foreground">
                   {data.title}
                 </h2>
@@ -109,7 +109,7 @@ export function FeedbackSection({
                 </p>
 
                 {/* Truck image scrubs in as you scroll down; reverses when scrolling up while pinned */}
-                <ScrubIn className="mt-20" progress={progress}>
+                <ScrubIn className="mt-10 md:mt-20" progress={progress}>
                   <img
                     src="/imgs/truck-slide-anim.png"
                     alt="FastestTruck"
@@ -117,14 +117,14 @@ export function FeedbackSection({
                     height={408}
                     loading="lazy"
                     decoding="async"
-                    className="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto drop-shadow-xl scale-[2] origin-left"
+                    className="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto drop-shadow-xl mx-auto md:mx-0 origin-center md:origin-left scale-[1.3] sm:scale-[1.6] lg:scale-[2]"
                   />
                 </ScrubIn>
               </div>
 
               {/* Cards (right) */}
-              <div className="mt-8 lg:mt-0 lg:col-span-2 lg:ml-24 xl:ml-32">
-                <div className="grid grid-cols-2 gap-2 md:gap-3 justify-center lg:justify-end lg:max-w-[620px] lg:ml-auto">
+              <div className="mt-8 lg:mt-0 lg:col-span-2 lg:ml-24 xl:ml-32 max-w-xl mx-auto lg:max-w-none lg:mx-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 justify-center lg:justify-end lg:max-w-[620px] lg:ml-auto">
                   {items.map((t, idx) => (
                 <Card
                   key={`${t.name}-${idx}`}
