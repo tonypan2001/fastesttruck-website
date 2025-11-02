@@ -17,10 +17,10 @@ export default function MainPage({ lang = "en" as Lang }: { lang?: Lang }) {
       <Navigation nav={content.navigation} />
       <TruckHeroSection bgImages={content.hero.bgImages} />
       <PackagesSection packages={content.section.packagesSection} />
+      <FeedbackSection feedback={content.section.feedbackSection} />
       <WhatWeDoSection whatWeDo={content.section.whatWeDoSection} />
       <WorksSection works={content.section.worksSection} />
       <SkillsSection skills={content.section.skillsSection} />
-      <FeedbackSection feedback={content.section.feedbackSection} />
       <ContactSection contact={content.section.contactSection} />
       <Footer footer={content.section.footerSection} />
     </main>
