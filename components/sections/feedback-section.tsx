@@ -60,7 +60,7 @@ export function FeedbackSection({
                 height={408}
                 loading="lazy"
                 decoding="async"
-                className="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto drop-shadow-xl"
+                className="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto drop-shadow-xl scale-[2] origin-left"
               />
             </SlideInOnScrollLeft>
           </div>
