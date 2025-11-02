@@ -59,18 +59,13 @@ export function ContactSection({
     <section
       id="contact"
       data-fv
-      className="scroll-section relative py-16 md:py-24 bg-background"
+      className="scroll-section relative min-h-[100svh] flex items-center py-16 md:py-24 bg-background"
       aria-label="Contact"
     >
-      {/* Full-height right-half background (only on large screens) */}
-      <div
-        aria-hidden
-        className="hidden lg:block absolute inset-y-0 right-0 w-1/2 bg-primary"
-      />
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+      <div className="container mx-auto px-4 relative z-10 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full items-center">
           {/* Left: Contact details */}
-          <div>
+          <div className="self-start">
             <h2 className="fv-item text-3xl md:text-5xl font-bold text-foreground">
               {data.title}
             </h2>
@@ -106,12 +101,12 @@ export function ContactSection({
             </ul>
           </div>
 
-          {/* Right: Contact form (full-height/right-half colored on lg+) */}
-          <div className="fv-item lg:pl-6 self-stretch h-full flex flex-col lg:text-primary-foreground p-4 md:p-6">
+          {/* Right: Contact form */}
+          <div className="fv-item lg:pl-6 self-stretch h-full flex flex-col p-4 md:p-6">
             <form onSubmit={onSubmit} className="max-w-full">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm lg:text-primary-foreground text-foreground mb-1">
+                  <label className="block text-sm text-foreground mb-1">
                     Name
                   </label>
                   <input
@@ -124,7 +119,7 @@ export function ContactSection({
                   />
                 </div>
                 <div>
-                  <label className="block text-sm lg:text-primary-foreground text-foreground mb-1">
+                  <label className="block text-sm text-foreground mb-1">
                     Email
                   </label>
                   <input
@@ -136,7 +131,7 @@ export function ContactSection({
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm lg:text-primary-foreground text-foreground mb-1">
+                  <label className="block text-sm text-foreground mb-1">
                     Phone
                   </label>
                   <input
@@ -148,7 +143,7 @@ export function ContactSection({
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm lg:text-primary-foreground text-foreground mb-1">
+                  <label className="block text-sm text-foreground mb-1">
                     Message
                   </label>
                   <textarea
