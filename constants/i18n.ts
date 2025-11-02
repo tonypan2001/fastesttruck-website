@@ -25,6 +25,7 @@ const th: ContentPack = {
       { label: "หน้าหลัก", href: "#home" },
       { label: "แพ็กเกจ", href: "#packages" },
       { label: "คำรับรอง", href: "#feedback" },
+      { label: "ติดต่อ", href: "#contact" },
     ],
   },
   hero: {

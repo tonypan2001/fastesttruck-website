@@ -4,6 +4,7 @@ export const navigation = {
     { label: "Home", href: "#home" },
     { label: "Packages", href: "#packages" },
     { label: "Feedback", href: "#feedback" },
+    { label: "Contact", href: "#contact" },
   ],
 };
 
