@@ -9,6 +9,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Star } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export function FeedbackSection({
   feedback,
@@ -48,6 +50,19 @@ export function FeedbackSection({
             <p className="fv-item mt-3 md:mt-4 max-w-xl text-left text-muted-foreground">
               {data.subtitle ?? "Real words from teams we partnered with."}
             </p>
+
+            {/* Truck image that slides in from left on scroll down, hides on scroll up */}
+            <SlideInOnScrollLeft className="mt-6">
+              <img
+                src="/imgs/truck-slide-anim.png"
+                alt="FastestTruck"
+                width={612}
+                height={408}
+                loading="lazy"
+                decoding="async"
+                className="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto drop-shadow-xl"
+              />
+            </SlideInOnScrollLeft>
           </div>
 
           {/* Cards (right) */}
@@ -109,5 +124,63 @@ export function FeedbackSection({
         </div>
       </div>
     </section>
+  );
+}
+
+function SlideInOnScrollLeft({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    let lastY = window.scrollY;
+
+    const inView = (el: Element) => {
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const top = Math.max(0, Math.min(vh, r.top));
+      const bottom = Math.max(0, Math.min(vh, r.bottom));
+      const visible = Math.max(0, bottom - top);
+      const height = Math.max(1, r.height || r.bottom - r.top);
+      return visible / height >= 0.2;
+    };
+
+    const onScroll = () => {
+      const nowY = window.scrollY;
+      const scrollingDown = nowY >= lastY;
+      lastY = nowY;
+      const el = ref.current;
+      if (!el) return;
+      if (!inView(el)) return; // only react when visible enough
+      setShow(scrollingDown);
+    };
+
+    // Kick once
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "will-change-transform transition-all duration-700 ease-out",
+        show ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10",
+        className,
+      )}
+    >
+      {children}
+    </div>
   );
 }
