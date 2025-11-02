@@ -58,22 +58,28 @@ export function FeedbackSection({
                   key={`${t.name}-${idx}`}
                   className="w-full backdrop-blur-sm bg-card/80 border-border/60 hover:shadow-md transition-transform duration-300 ease-out hover:-translate-y-1"
                 >
-                  <CardHeader className="items-center text-center p-4">
-                    <img
-                      src={t.avatar}
-                      alt={`${t.name} avatar`}
-                      width={40}
-                      height={40}
-                      className="w-10 h-10 rounded-full object-cover ring-2 ring-border/60"
-                      loading="lazy"
-                      decoding="async"
-                      referrerPolicy="no-referrer"
-                    />
-                    <CardTitle className="mt-1 text-sm">{t.name}</CardTitle>
-                    <CardDescription className="text-[11px]">
-                      {t.role}
-                      {t.company ? ` • ${t.company}` : ""}
-                    </CardDescription>
+                  <CardHeader className="p-3">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={t.avatar}
+                        alt={`${t.name} avatar`}
+                        width={40}
+                        height={40}
+                        className="w-10 h-10 rounded-full object-cover ring-2 ring-border/60"
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="min-w-0 text-left">
+                        <CardTitle className="text-sm leading-tight truncate">
+                          {t.name}
+                        </CardTitle>
+                        <CardDescription className="text-[11px] leading-tight truncate">
+                          {t.role}
+                          {t.company ? ` • ${t.company}` : ""}
+                        </CardDescription>
+                      </div>
+                    </div>
                     <div
                       className="mt-2 flex items-center gap-1"
                       aria-label={`Rating ${t.rating} out of 5`}
@@ -91,8 +97,8 @@ export function FeedbackSection({
                       ))}
                     </div>
                   </CardHeader>
-                  <CardContent className="px-4 pb-4">
-                    <blockquote className="text-center text-xs text-muted-foreground italic overflow-hidden">
+                  <CardContent className="px-3 pb-3">
+                    <blockquote className="text-center text-[11px] text-muted-foreground italic overflow-hidden">
                       “{t.quote}”
                     </blockquote>
                   </CardContent>
