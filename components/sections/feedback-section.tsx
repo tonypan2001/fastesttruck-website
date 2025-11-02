@@ -34,13 +34,60 @@ export function FeedbackSection({
     (_, i) => base[i % (base.length || 1)] || placeholder,
   );
 
+  // Pinning + scroll-scrubbing state
+  const pinContainerRef = useRef<HTMLDivElement | null>(null);
+  const [progress, setProgress] = useState(0); // 0..1 forward only
+  const maxProgressRef = useRef(0);
+  const lastYRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const container = pinContainerRef.current;
+    if (!container) return;
+
+    const compute = () => {
+      const r = container.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const total = Math.max(1, r.height - vh);
+      const pRaw = Math.min(1, Math.max(0, (vh - r.top) / total));
+
+      const y = window.scrollY;
+      const lastY = lastYRef.current ?? y;
+      const scrollingDown = y >= lastY;
+      lastYRef.current = y;
+
+      const visible = r.top < vh && r.bottom > 0;
+      if (!visible) {
+        // Reset when leaving the pinned area
+        maxProgressRef.current = 0;
+        setProgress(0);
+        return;
+      }
+
+      if (scrollingDown) {
+        const m = Math.max(maxProgressRef.current, pRaw);
+        if (m !== maxProgressRef.current) maxProgressRef.current = m;
+        setProgress(m);
+      } else {
+        // On upward scroll, hold the last max (no reverse)
+        setProgress(maxProgressRef.current);
+      }
+    };
+
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    window.addEventListener("resize", compute as any);
+    return () => {
+      window.removeEventListener("scroll", compute);
+      window.removeEventListener("resize", compute as any);
+    };
+  }, []);
+
   return (
-    <section
-      id="feedback"
-      data-fv
-      className="scroll-section relative py-16 md:py-24 flex items-center justify-center bg-background"
-    >
-      <div className="container px-4 relative z-10">
+    <section id="feedback" data-fv className="scroll-section relative bg-background">
+      <div ref={pinContainerRef} className="relative h-[200svh]">
+        <div className="sticky top-0 h-[100svh] flex items-center justify-center">
+          <div className="container px-4 py-16 md:py-24 relative z-10">
         <div className="lg:grid lg:grid-cols-3 lg:gap-4 items-start">
           {/* Header (left) */}
           <div>
@@ -51,8 +98,8 @@ export function FeedbackSection({
               {data.subtitle ?? "Real words from teams we partnered with."}
             </p>
 
-            {/* Truck image that slides in from left on scroll down, hides on scroll up */}
-            <SlideInOnScrollLeft className="mt-6">
+            {/* Truck image scrubs in as you scroll down; holds when scrolling up */}
+            <ScrubIn className="mt-6" progress={progress}>
               <img
                 src="/imgs/truck-slide-anim.png"
                 alt="FastestTruck"
@@ -62,7 +109,7 @@ export function FeedbackSection({
                 decoding="async"
                 className="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto drop-shadow-xl scale-[2] origin-left"
               />
-            </SlideInOnScrollLeft>
+            </ScrubIn>
           </div>
 
           {/* Cards (right) */}
@@ -122,64 +169,26 @@ export function FeedbackSection({
             </div>
           </div>
         </div>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-function SlideInOnScrollLeft({
+function ScrubIn({
   children,
   className,
+  progress = 0,
 }: {
   children: React.ReactNode;
   className?: string;
+  progress?: number; // 0..1
 }) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    let lastY = window.scrollY;
-
-    const inView = (el: Element) => {
-      const r = el.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const top = Math.max(0, Math.min(vh, r.top));
-      const bottom = Math.max(0, Math.min(vh, r.bottom));
-      const visible = Math.max(0, bottom - top);
-      const height = Math.max(1, r.height || r.bottom - r.top);
-      return visible / height >= 0.2;
-    };
-
-    const onScroll = () => {
-      const nowY = window.scrollY;
-      const scrollingDown = nowY >= lastY;
-      lastY = nowY;
-      const el = ref.current;
-      if (!el) return;
-      if (!inView(el)) return; // only react when visible enough
-      setShow(scrollingDown);
-    };
-
-    // Kick once
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
+  const translate = -40 * (1 - progress); // -40px -> 0
+  const opacity = Math.max(0, Math.min(1, progress));
   return (
-    <div
-      ref={ref}
-      className={cn(
-        "will-change-transform transition-all duration-700 ease-out",
-        show ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10",
-        className,
-      )}
-    >
+    <div className={cn("will-change-transform", className)} style={{ transform: `translateX(${translate}px)`, opacity }}>
       {children}
     </div>
   );
