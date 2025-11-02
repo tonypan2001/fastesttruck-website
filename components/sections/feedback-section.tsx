@@ -81,7 +81,7 @@ export function FeedbackSection({
                       </div>
                     </div>
                     <div
-                      className="mt-2 flex items-center gap-1"
+                      className="mt-1 flex items-center gap-1"
                       aria-label={`Rating ${t.rating} out of 5`}
                     >
                       {Array.from({ length: 5 }).map((_, i) => (
@@ -89,7 +89,7 @@ export function FeedbackSection({
                           key={i}
                           className={
                             i < (t.rating || 0)
-                              ? "w-3.5 h-3.5 text-foreground"
+                              ? "w-3.5 h-3.5 text-primary"
                               : "w-3.5 h-3.5 text-muted-foreground"
                           }
                           fill={i < (t.rating || 0) ? "currentColor" : "none"}
