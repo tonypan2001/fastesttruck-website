@@ -45,57 +45,11 @@ const th: ContentPack = {
     ],
   },
   section: {
-    ...enSection,
-    whatWeDoSection: {
-      ...enSection.whatWeDoSection,
-      title: "เราทำอะไร",
-      items: enSection.whatWeDoSection.items.map((it) => {
-        const t = it.title.toLowerCase();
-        if (t.includes("create website")) {
-          return {
-            ...it,
-            title: "พัฒนาเว็บไซต์",
-            detail:
-              "ออกแบบและพัฒนาเว็บไซต์สมัยใหม่ เร็ว และตรงอัตลักษณ์ ด้วย Next.js, TypeScript และแนวทางด้านประสิทธิภาพ",
-          };
-        }
-        if (t.includes("responsive")) {
-          return {
-            ...it,
-            title: "รองรับทุกอุปกรณ์",
-            detail:
-              "เลย์เอาต์แม่นยำ ปรับตัวได้กับทุกหน้าจอ สร้างประสบการณ์ที่สม่ำเสมอบนมือถือ แท็บเล็ต และเดสก์ท็อป",
-          };
-        }
-        if (t.includes("deploy") || t.includes("hosting")) {
-          return {
-            ...it,
-            title: "ดีพลอยและโฮสติ้ง",
-            detail:
-              "ดีพลอยพร้อมผลิตด้วย CI/CD และโฮสติ้งที่เหมาะสมบน Vercel, Netlify หรือคลาวด์ที่คุณเลือก",
-          };
-        }
-        return it;
-      }),
-    },
-    worksSection: {
-      ...enSection.worksSection,
-      title: "ผลงานของเรา",
-    },
-    skillsSection: {
-      ...enSection.skillsSection,
-      title: "ทักษะและเครื่องมือ",
-    },
+    // carry over only the sections still in use
+    packagesSection: enSection.packagesSection,
     feedbackSection: {
       ...enSection.feedbackSection,
       title: "เสียงจากลูกค้า",
-    },
-    contactSection: {
-      ...enSection.contactSection,
-      title: "ติดต่อเรา",
-      content:
-        "มีไอเดีย โปรเจกต์ หรืออยากพูดคุย? ยินดีรับฟังและเปิดกว้างสำหรับความร่วมมือและโอกาสใหม่ ๆ",
-      platform: enSection.contactSection.platform.map((p) => ({ ...p })),
     },
     footerSection: {
       ...enSection.footerSection,
