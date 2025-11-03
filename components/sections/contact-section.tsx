@@ -58,11 +58,15 @@ export function ContactSection({ contact }: { contact?: ContactData }) {
       className="scroll-section relative py-16 md:py-24 bg-background"
       aria-label="Contact"
     >
-      {/* Background image at 30% opacity with top fade */}
+      {/* Background image at 30% opacity with top fade and dark overlay */}
       <div
         aria-hidden
         className="absolute inset-0 opacity-30 bg-cover bg-center pointer-events-none"
         style={{ backgroundImage: "url(/imgs/truck-contact-bg.png)" }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-black/10 pointer-events-none"
       />
       <div
         aria-hidden
