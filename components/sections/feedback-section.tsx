@@ -37,6 +37,15 @@ export function FeedbackSection({
   // Pinning + scroll-scrubbing state
   const pinContainerRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0); // 0..1
+  const [disablePin, setDisablePin] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const check = () => setDisablePin(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -44,6 +53,10 @@ export function FeedbackSection({
     if (!container) return;
 
     const compute = () => {
+      if (disablePin) {
+        setProgress(1);
+        return;
+      }
       const r = container.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
       const total = Math.max(1, r.height - vh); // duration while sticky is pinned
@@ -87,7 +100,7 @@ export function FeedbackSection({
       window.removeEventListener("scroll", compute);
       window.removeEventListener("resize", compute as any);
     };
-  }, []);
+  }, [disablePin]);
 
   return (
     <section
@@ -95,8 +108,8 @@ export function FeedbackSection({
       data-fv
       className="scroll-section relative bg-background"
     >
-      <div ref={pinContainerRef} className="relative h-[160svh] md:h-[200svh]">
-        <div className="sticky top-0 h-[100svh] flex items-center justify-center">
+      <div ref={pinContainerRef} className="relative h-auto md:h-[200svh]">
+        <div className="md:sticky md:top-0 md:h-[100svh] flex items-center justify-center">
           <div className="container px-4 py-12 md:py-24 relative z-10">
             <div className="lg:grid lg:grid-cols-3 lg:gap-6 items-start">
               {/* Header (left) */}
