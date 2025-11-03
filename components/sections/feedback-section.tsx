@@ -150,9 +150,14 @@ export function FeedbackSection({
               {/* Cards (right) */}
               <div className="mt-8 lg:mt-0 lg:col-span-2 lg:ml-24 xl:ml-32 max-w-xl mx-auto lg:max-w-none lg:mx-0">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 justify-center lg:justify-end lg:max-w-[620px] lg:ml-auto">
-                  {items.map((t, idx) => (
-                <Card
-                  key={`${t.name}-${idx}`}
+                  {items.map((t, idx) => {
+                    const start = 0.06 * idx; // stagger start per card
+                    const span = 0.3; // window length
+                    const raw = (progress - start) / span;
+                    const p = Math.max(0, Math.min(1, raw));
+                    return (
+                      <ScrubInFromRight key={`${t.name}-${idx}`} progress={p}>
+                        <Card
                   className="fv-item w-full backdrop-blur-sm bg-card/80 border-border/60 hover:shadow-md transition-transform duration-300 ease-out hover:-translate-y-1"
                 >
                       <CardHeader className="p-3">
@@ -202,7 +207,9 @@ export function FeedbackSection({
                         </blockquote>
                       </CardContent>
                     </Card>
-                  ))}
+                      </ScrubInFromRight>
+                    );
+                  })}
                 </div>
 
                 
