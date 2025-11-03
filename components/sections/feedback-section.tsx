@@ -133,6 +133,18 @@ export function FeedbackSection({
                     className="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto drop-shadow-xl mx-auto md:mx-0 origin-center md:origin-left scale-[1.3] sm:scale-[1.6] lg:scale-[2]"
                   />
                 </ScrubIn>
+
+                {/* Company blurb — big headline with smaller subtext, sliding in from right */}
+                <ScrubInFromRight progress={progress} className="mt-6 max-w-xl">
+                  <div>
+                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+                      Built For Speed. Trusted For Care.
+                    </h3>
+                    <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-[60ch]">
+                      Nationwide coverage, real‑time tracking, and experienced drivers — delivering on time, every time.
+                    </p>
+                  </div>
+                </ScrubInFromRight>
               </div>
 
               {/* Cards (right) */}
@@ -192,6 +204,8 @@ export function FeedbackSection({
                     </Card>
                   ))}
                 </div>
+
+                
               </div>
             </div>
           </div>
@@ -211,6 +225,27 @@ function ScrubIn({
   progress?: number; // 0..1
 }) {
   const translate = -40 * (1 - progress); // -40px -> 0
+  const opacity = Math.max(0, Math.min(1, progress));
+  return (
+    <div
+      className={cn("will-change-transform", className)}
+      style={{ transform: `translateX(${translate}px)`, opacity }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function ScrubInFromRight({
+  children,
+  className,
+  progress = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  progress?: number; // 0..1
+}) {
+  const translate = 40 * (1 - progress); // 40px -> 0 (from right)
   const opacity = Math.max(0, Math.min(1, progress));
   return (
     <div
