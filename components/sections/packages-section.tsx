@@ -16,6 +16,15 @@ export default function PackagesSection({
   // Pin + scrub progress (0..1)
   const pinRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
+  const [disablePin, setDisablePin] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const check = () => setDisablePin(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -23,6 +32,10 @@ export default function PackagesSection({
     if (!el) return;
 
     const onScroll = () => {
+      if (disablePin) {
+        setProgress(1);
+        return;
+      }
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
       const total = Math.max(1, r.height - vh);
@@ -46,7 +59,7 @@ export default function PackagesSection({
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll as any);
     };
-  }, []);
+  }, [disablePin]);
 
   return (
     <section
@@ -65,16 +78,16 @@ export default function PackagesSection({
         aria-hidden
         className="absolute inset-x-0 bottom-0 h-32 md:h-48 bg-gradient-to-t from-background to-transparent pointer-events-none"
       />
-      <div ref={pinRef} className="relative h-[180svh] md:h-[200svh]">
-        <div className="sticky top-0 h-[100svh] flex items-center justify-center">
+      <div ref={pinRef} className="relative h-auto md:h-[200svh]">
+        <div className="md:sticky md:top-0 md:h-[100svh] flex items-center justify-center">
           <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
             <header className="max-w-3xl mx-auto text-center">
-              <SlideInLeft progress={Math.max(0, Math.min(1, progress / 0.5))}>
+              <SlideInLeft progress={disablePin ? 1 : Math.max(0, Math.min(1, progress / 0.5))}>
                 <h2 className="text-3xl md:text-5xl font-bold text-foreground">
                   {data.title}
                 </h2>
               </SlideInLeft>
-              <SlideInLeft progress={Math.max(0, Math.min(1, (progress - 0.1) / 0.5))}>
+              <SlideInLeft progress={disablePin ? 1 : Math.max(0, Math.min(1, (progress - 0.1) / 0.5))}>
                 <p className="mt-3 md:mt-4 text-muted-foreground md:text-lg">
                   {data.subtitle}
                 </p>
@@ -85,12 +98,12 @@ export default function PackagesSection({
               {data.items.map((pkg, idx) => {
                 const start = 0.08 * idx; // stagger start
                 const span = 0.35; // duration window per card
-                const raw = (progress - start) / span;
+                const raw = ((disablePin ? 1 : progress) - start) / span;
                 const p = Math.max(0, Math.min(1, raw));
 
                 // Details appear after card shown
                 const detailStart = start + span * 0.7;
-                const dRaw = (progress - detailStart) / (span * 0.3);
+                const dRaw = ((disablePin ? 1 : progress) - detailStart) / (span * 0.3);
                 const dp = Math.max(0, Math.min(1, dRaw));
 
                 // per-package bullets
@@ -124,7 +137,7 @@ export default function PackagesSection({
                     <SlideInRight progress={p}>
                       <article
                         className={cn(
-                          "group relative overflow-hidden rounded-xl border border-border/60 shadow-sm",
+                          "fv-item group relative overflow-hidden rounded-xl border border-border/60 shadow-sm",
                           "hover:shadow-md transition-transform",
                         )}
                       >
@@ -176,7 +189,7 @@ export default function PackagesSection({
 
                     {/* Details slide down under the card */}
                     <SlideDown progress={dp}>
-                      <article className="mt-3 rounded-xl border border-border/60 bg-card/80 backdrop-blur p-5">
+                      <article className="fv-item mt-3 rounded-xl border border-border/60 bg-card/80 backdrop-blur p-5">
                         <div className="flex items-start justify-between gap-3">
                           <div>
                             <h4 className="text-base font-semibold text-foreground">
