@@ -87,111 +87,103 @@ export default function PackagesSection({
                 const span = 0.35; // duration window per card
                 const raw = (progress - start) / span;
                 const p = Math.max(0, Math.min(1, raw));
+
+                // Details appear after card shown
+                const detailStart = start + span * 0.7;
+                const dRaw = (progress - detailStart) / (span * 0.3);
+                const dp = Math.max(0, Math.min(1, dRaw));
+
+                // per-package bullets
+                const key = (pkg.name || '').toLowerCase();
+                const common = [
+                  "Real‑time tracking in customer portal",
+                  "Insured cargo with careful handling",
+                  "Nationwide coverage with on‑time delivery",
+                ];
+                const map: Record<string, string[]> = {
+                  "mini cargo": [
+                    "Best for parcels and e‑commerce",
+                    "Fast metro pick‑up windows",
+                    ...common,
+                  ],
+                  "standard truck": [
+                    "Ideal for warehouses and SMEs",
+                    "Flexible scheduling and routing",
+                    ...common,
+                  ],
+                  "heavy load": [
+                    "Specialized heavy‑duty equipment",
+                    "Pro drivers with safety training",
+                    ...common,
+                  ],
+                };
+                const bullets = map[key] || common;
+
                 return (
-                  <SlideInRight key={pkg.name} progress={p}>
-                    <article
-                      className={cn(
-                        "group relative overflow-hidden rounded-xl border border-border/60 shadow-sm",
-                        "hover:shadow-md transition-transform",
-                      )}
-                    >
-                      {/* Background image */}
-                      <div
-                        aria-hidden
-                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-105 group-hover:scale-110"
-                        style={{
-                          backgroundImage: `url(${(pkg as any).imageUrl || ""})`,
-                        }}
-                      />
-                      {/* Base overlay for readability */}
-                      <div className="absolute inset-0 bg-black/25" />
-                      {/* Fade-in overlay on hover */}
-                      <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div key={pkg.name} className="flex flex-col">
+                    <SlideInRight progress={p}>
+                      <article
+                        className={cn(
+                          "group relative overflow-hidden rounded-xl border border-border/60 shadow-sm",
+                          "hover:shadow-md transition-transform",
+                        )}
+                      >
+                        {/* Background image */}
+                        <div
+                          aria-hidden
+                          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-105 group-hover:scale-110"
+                          style={{
+                            backgroundImage: `url(${(pkg as any).imageUrl || ""})`,
+                          }}
+                        />
+                        {/* Base overlay for readability */}
+                        <div className="absolute inset-0 bg-black/25" />
+                        {/* Fade-in overlay on hover */}
+                        <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                      <div className="relative p-6 flex flex-col min-h-[220px] justify-end text-white">
-                        <div className="flex items-start justify-between gap-2">
-                          <h3 className="text-xl font-semibold">{pkg.name}</h3>
-                          <span className="inline-flex items-center rounded-full bg-white/20 text-white px-2 py-1 text-xs font-medium">
-                            {pkg.weightRange}
-                          </span>
-                        </div>
-                        <p className="mt-3 text-sm text-white/85 min-h-12">
-                          {pkg.description}
-                        </p>
-                      </div>
-
-                      <div className="relative px-6 pb-6">
-                        <div className="flex items-end justify-between gap-3">
-                          <div>
-                            <div className="text-sm text-white/80">Starting price</div>
-                            <div className="text-2xl font-bold text-white">
-                              {pkg.startingPrice}
-                            </div>
+                        <div className="relative p-6 flex flex-col min-h-[220px] justify-end text-white">
+                          <div className="flex items-start justify-between gap-2">
+                            <h3 className="text-xl font-semibold">{pkg.name}</h3>
+                            <span className="inline-flex items-center rounded-full bg-white/20 text-white px-2 py-1 text-xs font-medium">
+                              {pkg.weightRange}
+                            </span>
                           </div>
-                          <Button size="sm" asChild className="shrink-0">
-                            <a
-                              href="#packages"
-                              aria-label={`Learn more about ${pkg.name}`}
-                            >
-                              Learn More
-                            </a>
-                          </Button>
+                          <p className="mt-3 text-sm text-white/85 min-h-12">
+                            {pkg.description}
+                          </p>
                         </div>
-                      </div>
-                    </article>
-                  </SlideInRight>
-                );
-              })}
-            </div>
 
-            {/* Package details under the grid */}
-            <div className="mt-10 md:mt-12">
-              <h3 className="text-2xl md:text-3xl font-semibold text-foreground text-center">
-                Package Details
-              </h3>
-              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                {data.items.map((pkg, idx) => {
-                  const key = (pkg.name || '').toLowerCase();
-                  const common = [
-                    "Real‑time tracking in customer portal",
-                    "Insured cargo with careful handling",
-                    "Nationwide coverage with on‑time delivery",
-                  ];
-                  const map: Record<string, string[]> = {
-                    "mini cargo": [
-                      "Best for parcels and e‑commerce",
-                      "Fast metro pick‑up windows",
-                      ...common,
-                    ],
-                    "standard truck": [
-                      "Ideal for warehouses and SMEs",
-                      "Flexible scheduling and routing",
-                      ...common,
-                    ],
-                    "heavy load": [
-                      "Specialized heavy‑duty equipment",
-                      "Pro drivers with safety training",
-                      ...common,
-                    ],
-                  };
-                  const bullets = map[key] || common;
+                        <div className="relative px-6 pb-6">
+                          <div className="flex items-end justify-between gap-3">
+                            <div>
+                              <div className="text-sm text-white/80">Starting price</div>
+                              <div className="text-2xl font-bold text-white">
+                                {pkg.startingPrice}
+                              </div>
+                            </div>
+                            <Button size="sm" asChild className="shrink-0">
+                              <a
+                                href="#packages"
+                                aria-label={`Learn more about ${pkg.name}`}
+                              >
+                                Learn More
+                              </a>
+                            </Button>
+                          </div>
+                        </div>
+                      </article>
+                    </SlideInRight>
 
-                  // Stagger slide‑in for details as well (slightly later)
-                  const start = 0.15 + 0.06 * idx;
-                  const span = 0.35;
-                  const raw = (progress - start) / span;
-                  const p = Math.max(0, Math.min(1, raw));
-
-                  return (
-                    <SlideInLeft key={`detail-${pkg.name}`} progress={p}>
-                      <article className="rounded-xl border border-border/60 bg-card/80 backdrop-blur p-5 h-full">
+                    {/* Details slide down under the card */}
+                    <SlideDown progress={dp}>
+                      <article className="mt-3 rounded-xl border border-border/60 bg-card/80 backdrop-blur p-5">
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <h4 className="text-lg font-semibold text-foreground">
-                              {pkg.name}
+                            <h4 className="text-base font-semibold text-foreground">
+                              What's included
                             </h4>
                             <div className="text-xs text-muted-foreground mt-1">
-                              Range: {pkg.weightRange}
+                              {pkg.name} • {pkg.weightRange}
                             </div>
                           </div>
                           <div className="text-right">
@@ -207,11 +199,13 @@ export default function PackagesSection({
                           ))}
                         </ul>
                       </article>
-                    </SlideInLeft>
-                  );
-                })}
-              </div>
+                    </SlideDown>
+                  </div>
+                );
+              })}
             </div>
+
+            
 
             <p className="fv-item mt-8 text-sm text-muted-foreground text-center">
               {data.footnote}
@@ -254,6 +248,25 @@ function SlideInLeft({
   return (
     <div
       style={{ transform: `translateX(${translate}px)`, opacity }}
+      className="will-change-transform"
+    >
+      {children}
+    </div>
+  );
+}
+
+function SlideDown({
+  children,
+  progress = 0,
+}: {
+  children: React.ReactNode;
+  progress?: number; // 0..1
+}) {
+  const translateY = -30 * (1 - progress); // px from top (slide down)
+  const opacity = Math.max(0, Math.min(1, progress));
+  return (
+    <div
+      style={{ transform: `translateY(${translateY}px)`, opacity }}
       className="will-change-transform"
     >
       {children}
