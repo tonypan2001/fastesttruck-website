@@ -184,12 +184,14 @@
 /* Logo hover sweep: base text keeps current color; overlay fills in primary on hover */
 .logo { position: relative; display: inline-block; }
 .logo .logo-fill {
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
+  position: absolute; inset: 0;
+  /* Reveal from left to right using clip-path for crisp "fill" */
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: clip-path;
+  pointer-events: none;
 }
-.logo-trigger:hover .logo .logo-fill { transform: scaleX(1); }
+.logo-trigger:hover .logo .logo-fill { clip-path: inset(0 0 0 0); }
 
 /* Scroll-triggered fade-ins per section */
 :root { --fv-duration: 1800ms; --fv-distance: 20px; }
