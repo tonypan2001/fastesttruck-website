@@ -48,7 +48,7 @@ export default function TruckHeroSection({
       id="home"
       data-fv
       className={cn(
-        "relative min-h-[85svh] md:min-h-[92svh] w-full overflow-hidden",
+        "relative min-h-[100svh] w-full overflow-hidden",
         "flex items-center",
       )}
       aria-label="Hero - Truck Logistics"
@@ -102,8 +102,7 @@ export default function TruckHeroSection({
             if (!el) return;
             const navHeight = 80;
             const rect = el.getBoundingClientRect();
-            const absoluteTop =
-              rect.top + (window.scrollY || window.pageYOffset);
+            const absoluteTop = rect.top + (window.scrollY || window.pageYOffset);
             const targetY = Math.max(0, absoluteTop - navHeight);
             window.scrollTo({ top: targetY, behavior: "smooth" });
           }}
