@@ -18,21 +18,75 @@ export function FeedbackSection({
   feedback?: typeof sectionEN.feedbackSection;
 }) {
   const data = feedback ?? sectionEN.feedbackSection;
-  const base = data?.testimonials ?? [];
-  // Ensure exactly 6 items by repeating/padding
-  const placeholder = {
-    name: "Happy Customer",
-    role: "Business Owner",
-    company: "",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=128&auto=format&fit=crop",
-    quote: "Reliable service and timely delivery every time!",
-  };
-  const items = Array.from(
-    { length: 6 },
-    (_, i) => base[i % (base.length || 1)] || placeholder,
-  );
+  const base = (data?.testimonials ?? []).filter(Boolean);
+  // Build up to 6 unique testimonials, filling with diverse placeholders if needed
+  const placeholders = [
+    {
+      name: "Kittisak P.",
+      role: "Retail Owner",
+      company: "",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=256&auto=format&fit=crop",
+      quote: "Smooth booking and right-on-time delivery.",
+    },
+    {
+      name: "Nattaporn S.",
+      role: "Logistics Coordinator",
+      company: "",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=256&auto=format&fit=crop",
+      quote: "Great communication and friendly drivers.",
+    },
+    {
+      name: "Anan C.",
+      role: "Warehouse Manager",
+      company: "",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1531123414780-f742f1e1e222?q=80&w=256&auto=format&fit=crop",
+      quote: "Reliable service — no surprises, just results.",
+    },
+    {
+      name: "Suda K.",
+      role: "E‑commerce Seller",
+      company: "",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=256&auto=format&fit=crop",
+      quote: "Pricing is fair and transparent.",
+    },
+    {
+      name: "Wirat M.",
+      role: "Factory Supervisor",
+      company: "",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1545960996-1079aefc1b8f?q=80&w=256&auto=format&fit=crop",
+      quote: "Handled heavy loads safely and quickly.",
+    },
+    {
+      name: "Chalita R.",
+      role: "Procurement",
+      company: "",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=256&auto=format&fit=crop",
+      quote: "Easy to schedule and track shipments.",
+    },
+  ];
+
+  const names = new Set(base.map((t: any) => t?.name).filter(Boolean));
+  const filled: any[] = [...base];
+  for (const ph of placeholders) {
+    if (filled.length >= 6) break;
+    if (!names.has(ph.name)) {
+      filled.push(ph as any);
+      names.add(ph.name);
+    }
+  }
+  const items = filled.slice(0, 6);
 
   // Pinning + scroll-scrubbing state
   const pinContainerRef = useRef<HTMLDivElement | null>(null);
