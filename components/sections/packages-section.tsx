@@ -69,12 +69,16 @@ export default function PackagesSection({
         <div className="sticky top-0 h-[100svh] flex items-center justify-center">
           <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
             <header className="max-w-3xl mx-auto text-center">
-              <h2 className="fv-item text-3xl md:text-5xl font-bold text-foreground">
-                {data.title}
-              </h2>
-              <p className="fv-item mt-3 md:mt-4 text-muted-foreground md:text-lg">
-                {data.subtitle}
-              </p>
+              <SlideInLeft progress={Math.max(0, Math.min(1, progress / 0.5))}>
+                <h2 className="text-3xl md:text-5xl font-bold text-foreground">
+                  {data.title}
+                </h2>
+              </SlideInLeft>
+              <SlideInLeft progress={Math.max(0, Math.min(1, (progress - 0.1) / 0.5))}>
+                <p className="mt-3 md:mt-4 text-muted-foreground md:text-lg">
+                  {data.subtitle}
+                </p>
+              </SlideInLeft>
             </header>
 
             <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
@@ -158,6 +162,25 @@ function SlideInRight({
   progress?: number; // 0..1
 }) {
   const translate = 50 * (1 - progress); // px from right
+  const opacity = Math.max(0, Math.min(1, progress));
+  return (
+    <div
+      style={{ transform: `translateX(${translate}px)`, opacity }}
+      className="will-change-transform"
+    >
+      {children}
+    </div>
+  );
+}
+
+function SlideInLeft({
+  children,
+  progress = 0,
+}: {
+  children: React.ReactNode;
+  progress?: number; // 0..1
+}) {
+  const translate = -50 * (1 - progress); // px from left
   const opacity = Math.max(0, Math.min(1, progress));
   return (
     <div

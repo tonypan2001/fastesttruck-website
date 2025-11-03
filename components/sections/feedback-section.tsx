@@ -114,12 +114,22 @@ export function FeedbackSection({
             <div className="lg:grid lg:grid-cols-3 lg:gap-6 items-start">
               {/* Header (left) */}
               <div className="mb-6 md:mb-0">
-                <h2 className="fv-item text-4xl md:text-5xl font-bold text-left text-foreground">
-                  {data.title}
-                </h2>
-                <p className="fv-item mt-3 md:mt-4 max-w-xl text-left text-muted-foreground">
-                  {data.subtitle ?? "Real words from teams we partnered with."}
-                </p>
+                <ScrubIn
+                  progress={Math.max(0, Math.min(1, progress / 0.5))}
+                  className=""
+                >
+                  <h2 className="text-4xl md:text-5xl font-bold text-left text-foreground">
+                    {data.title}
+                  </h2>
+                </ScrubIn>
+                <ScrubIn
+                  progress={Math.max(0, Math.min(1, (progress - 0.1) / 0.5))}
+                  className=""
+                >
+                  <p className="mt-3 md:mt-4 max-w-xl text-left text-muted-foreground">
+                    {data.subtitle ?? "Real words from teams we partnered with."}
+                  </p>
+                </ScrubIn>
 
                 {/* Truck image scrubs in as you scroll down; reverses when scrolling up while pinned */}
                 <ScrubIn className="mt-10 md:mt-20" progress={progress}>
