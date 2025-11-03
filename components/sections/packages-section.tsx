@@ -144,6 +144,75 @@ export default function PackagesSection({
               })}
             </div>
 
+            {/* Package details under the grid */}
+            <div className="mt-10 md:mt-12">
+              <h3 className="text-2xl md:text-3xl font-semibold text-foreground text-center">
+                Package Details
+              </h3>
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                {data.items.map((pkg, idx) => {
+                  const key = (pkg.name || '').toLowerCase();
+                  const common = [
+                    "Real‑time tracking in customer portal",
+                    "Insured cargo with careful handling",
+                    "Nationwide coverage with on‑time delivery",
+                  ];
+                  const map: Record<string, string[]> = {
+                    "mini cargo": [
+                      "Best for parcels and e‑commerce",
+                      "Fast metro pick‑up windows",
+                      ...common,
+                    ],
+                    "standard truck": [
+                      "Ideal for warehouses and SMEs",
+                      "Flexible scheduling and routing",
+                      ...common,
+                    ],
+                    "heavy load": [
+                      "Specialized heavy‑duty equipment",
+                      "Pro drivers with safety training",
+                      ...common,
+                    ],
+                  };
+                  const bullets = map[key] || common;
+
+                  // Stagger slide‑in for details as well (slightly later)
+                  const start = 0.15 + 0.06 * idx;
+                  const span = 0.35;
+                  const raw = (progress - start) / span;
+                  const p = Math.max(0, Math.min(1, raw));
+
+                  return (
+                    <SlideInLeft key={`detail-${pkg.name}`} progress={p}>
+                      <article className="rounded-xl border border-border/60 bg-card/80 backdrop-blur p-5 h-full">
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <h4 className="text-lg font-semibold text-foreground">
+                              {pkg.name}
+                            </h4>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              Range: {pkg.weightRange}
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-[11px] text-muted-foreground">From</div>
+                            <div className="text-base font-semibold text-foreground">
+                              {pkg.startingPrice}
+                            </div>
+                          </div>
+                        </div>
+                        <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                          {bullets.map((b, i) => (
+                            <li key={i} className="leading-snug">• {b}</li>
+                          ))}
+                        </ul>
+                      </article>
+                    </SlideInLeft>
+                  );
+                })}
+              </div>
+            </div>
+
             <p className="fv-item mt-8 text-sm text-muted-foreground text-center">
               {data.footnote}
             </p>
