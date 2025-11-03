@@ -76,7 +76,7 @@ export function ContactSection({ contact }: { contact?: ContactData }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* Left: Contact details (glass card with glow) */}
           <div className="flex">
-            <div className="w-full rounded-2xl border border-white/25 dark:border-white/15 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-300 p-4 md:p-6 hover:border-primary/60 hover:shadow-[0_0_0_2px_rgba(249,115,22,0.35),0_0_28px_rgba(249,115,22,0.35)]">
+            <div className="w-full rounded-2xl border-2 border-white/40 dark:border-white/20 bg-white/20 dark:bg-white/10 backdrop-blur-lg shadow-md transition-all duration-300 p-6 md:p-8 hover:border-primary/70 hover:shadow-[0_0_0_3px_rgba(249,115,22,0.45),0_0_36px_rgba(249,115,22,0.45)]">
               <h2 className="fv-item text-3xl md:text-5xl font-bold text-foreground">
                 {data.title}
               </h2>
@@ -121,7 +121,7 @@ export function ContactSection({ contact }: { contact?: ContactData }) {
 
           {/* Right: Contact form (glass card with glow) */}
           <div className="fv-item lg:pl-6 flex flex-col">
-            <div className="w-full rounded-2xl border border-white/25 dark:border-white/15 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-300 p-4 md:p-6 hover:border-primary/60 hover:shadow-[0_0_0_2px_rgba(249,115,22,0.35),0_0_28px_rgba(249,115,22,0.35)]">
+            <div className="w-full rounded-2xl border-2 border-white/40 dark:border-white/20 bg-white/20 dark:bg-white/10 backdrop-blur-lg shadow-md transition-all duration-300 p-6 md:p-8 hover:border-primary/70 hover:shadow-[0_0_0_3px_rgba(249,115,22,0.45),0_0_36px_rgba(249,115,22,0.45)]">
               <form onSubmit={onSubmit} className="max-w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
