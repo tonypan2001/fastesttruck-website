@@ -60,6 +60,11 @@ export default function PackagesSection({
         className="absolute inset-0 opacity-30 pointer-events-none bg-cover bg-center"
         style={{ backgroundImage: "url(/imgs/package-section-bg.png)" }}
       />
+      {/* Bottom fade to background color for smooth blend */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-32 md:h-48 bg-gradient-to-t from-background to-transparent pointer-events-none"
+      />
       <div ref={pinRef} className="relative h-[180svh] md:h-[200svh]">
         <div className="sticky top-0 h-[100svh] flex items-center justify-center">
           <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
