@@ -155,21 +155,6 @@ export function Navigation({ nav }: { nav?: typeof navigation }) {
             ref={menuRef}
             className="relative hidden md:flex items-center gap-1 justify-center justify-self-center"
           >
-            {/* Sliding underline (primary color) */}
-            <span
-              aria-hidden
-              className={cn(
-                "pointer-events-none absolute left-0 bottom-0",
-                "h-1.5 bg-primary rounded-full",
-                "transition-[transform,width,opacity] duration-200 ease-out",
-                hoverRect.visible ? "opacity-100" : "opacity-0",
-              )}
-              style={{
-                transform: `translateX(${hoverRect.x}px)`,
-                width: `${hoverRect.w}px`,
-                zIndex: 0,
-              }}
-            />
 
             {/* เมนูจริง */}
             <div className="relative z-10 flex items-center gap-1">
@@ -188,7 +173,7 @@ export function Navigation({ nav }: { nav?: typeof navigation }) {
                   className={cn(
                     `relative text-sm transition-colors cursor-pointer px-4 py-3 pb-4`,
                     activeSection === item.href.substring(1)
-                      ? (isScrolled ? "text-foreground" : "text-white")
+                      ? "text-primary"
                       : (isScrolled
                           ? "text-foreground/70 hover:text-primary"
                           : "text-white/80 hover:text-primary"),
